@@ -1,0 +1,10 @@
+List of third-party dependencies grouped by their license type.
+
+MIT License:
+    * dplyr (dplyr 0.8.3, https://github.com/tidyverse/dplyr)
+
+GPL-2 License:
+ 	* rio (rio 0.5.16, https://cran.r-project.org/web/packages/rio/index.html)
+
+GPL-3 License:
+ 	* Hmisc (Hmisc 4.2-0, https://cran.r-project.org/web/packages/Hmisc/index.html)

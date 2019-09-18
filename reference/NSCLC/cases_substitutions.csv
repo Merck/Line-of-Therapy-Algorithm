@@ -1,0 +1,5 @@
+original,substitute
+cisplatin,carboplatin
+carboplatin,cisplatin
+paclitaxel,nab-paclitaxel
+nab-paclitaxel,paclitaxel
