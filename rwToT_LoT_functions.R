@@ -68,39 +68,39 @@ check_line_name = function(regimen, drug_summary, cases) {
   
   # Check if regimen and drugs in drug summary are equal
   #drug_summary = drug_summary %>% filter(LAST_SEEN > line.start_date + 28)
-  check_drugs = is.element(regimen,drug_summary$MED_NAME)
+  #check_drugs = is.element(regimen,drug_summary$MED_NAME)
   
   # If not, then check if the FALSE drug is an eligible addition or substitution (which affects the line name)
-  if (is.element(FALSE,check_drugs)) {
-    test = is.element(drug_summary$MED_NAME, regimen$MED_NAME)
-    exclusion_index = which(FALSE == test)
+  #if (is.element(FALSE,check_drugs)) {
+  #  test = is.element(drug_summary$MED_NAME, regimen$MED_NAME)
+  #  exclusion_index = which(FALSE == test)
     
-    for (i in 1:length(exclusion_index)) {
-      index = exclusion_index[i]
-      drug_name = drug_summary$MED_NAME[index]
-      drug_last_seen = drug_summary$LAST_SEEN[index]
+  #  for (i in 1:length(exclusion_index)) {
+  #    index = exclusion_index[i]
+  #    drug_name = drug_summary$MED_NAME[index]
+  #    drug_last_seen = drug_summary$LAST_SEEN[index]
       
-      if (drug_last_seen <= line.start_date + 28) next
+  #    if (drug_last_seen <= line.start_date + 28) next
       # Check if it is an eligible addition
-      if (is_eligible_drug_addition(drug_name, cases.line_additions)) {
-        print("Note: Eligible drug addition found, adding to regimen and line name")
-        print("Old information")
-        print(drug_summary)
-        print(regimen)
-        regimen = c(regimen,drug_name)
-        print("New information")
-        print(regimen)
-      }
+  #    if (is_eligible_drug_addition(drug_name, cases.line_additions)) {
+  #      print("Note: Eligible drug addition found, adding to regimen and line name")
+  #      print("Old information")
+  #      print(drug_summary)
+  #      print(regimen)
+  #      regimen = c(regimen,drug_name)
+  #      print("New information")
+  #      print(regimen)
+  #    }
       
       # Check if it is an eligible substitution
-    }
-  }
+  #  }
+  #}
 
   regimen = sapply(regimen, capitalize)
   regimen = sort(regimen)
   line.name = paste(regimen, collapse = ',')
   
-  return(list("line_name" = line.name, "line_start" = line.start_date))
+  return(list("line_name" = line.name, "line_start" = line.start_date, "line_switched" = switched))
 }
 
 

@@ -67,13 +67,17 @@ get_regimen = function(df, r_window) {
 ### 7. Compute final outputs and return it                                                                                                                               ###
 ############################################################################################################################################################################
 get_line_data = function(df, r_regimen, l_disgap, l_line_number, l_is_next_maintenance) {
-  
   # Set assumptions
   line.is_maintenance = FALSE
   line.type = ifelse(length(r_regimen) > 1,"combo","mono")
   line.line_number = l_line_number
   line.line_start = NULL
   line.is_next_maintenance = l_is_next_maintenance
+  
+  has_eligible_drug_addition = FALSE
+  has_eligible_drug_substition = FALSE
+  has_gap_exemption = FALSE
+  has_line_name_exemption = FALSE
   
   ############### First Pass Checks #################
   # If we hit the last row in the claims database, then stop and return outputs
@@ -92,10 +96,13 @@ get_line_data = function(df, r_regimen, l_disgap, l_line_number, l_is_next_maint
       next.drug = df[i,'MED_NAME']
       next.drug_date = df[i,'MED_START']
       remaining.drugs = df[i:nrow(df),]
+      has_eligible_drug_addition = is_eligible_drug_addition(next.drug, cases.line_additions)
+      has_eligible_drug_substition = is_eligible_drug_substitution(next.drug, r_regimen, cases.line_substitutions)
+      has_gap_exemption = is_excluded_from_gap(r_regimen, remaining.drugs, cases.episode_gap)
       
       # If you hit the last row in the scan, then stop and return outputs
-      if (i == nrow(df) && (is.element(next.drug, r_regimen) || is_eligible_drug_substitution(next.drug, r_regimen, cases.line_substitutions) || is_eligible_drug_addition(next.drug, cases.line_additions))) {
-        if (next.drug_date - current.drug_end > l_disgap && !is_excluded_from_gap(r_regimen, remaining.drugs, cases.episode_gap)) {
+      if (i == nrow(df) && (is.element(next.drug, r_regimen) || has_eligible_drug_substition || has_eligible_drug_addition)) {
+        if (next.drug_date - current.drug_end > l_disgap && !has_gap_exemption) {
             line.end_date = current.drug_end
             line.end_reason = "Passed discontinuation gap"
             line.next_start = next.drug_date
@@ -111,14 +118,14 @@ get_line_data = function(df, r_regimen, l_disgap, l_line_number, l_is_next_maint
       # Check if the gap between the next drug and current drug is wider than the discontinuation gap
       else if (next.drug_date - current.drug_end > l_disgap) {
         # If drug is excluded from the discontinuation gap, then skip whole process and go to the next drug
-        if (is_excluded_from_gap(r_regimen, remaining.drugs, cases.episode_gap)) {next}
+        if (has_gap_exemption) {next}
         line.end_date = current.drug_end
         line.end_reason = "Passed discontinuation gap"
         line.next_start = next.drug_date
         break
       }
       # Check if the next drug is not part of the regimen
-      else if (!is.element(next.drug, r_regimen) && !is_eligible_drug_addition(next.drug, cases.line_additions) && !is_eligible_drug_substitution(next.drug, r_regimen, cases.line_substitutions)){
+      else if (!is.element(next.drug, r_regimen) && !has_eligible_drug_addition && !has_eligible_drug_substition){
         line.end_date = current.drug_end
         line.end_reason = "New line started with new drugs"
         line.next_start = next.drug_date
@@ -138,6 +145,8 @@ get_line_data = function(df, r_regimen, l_disgap, l_line_number, l_is_next_maint
   check_line_name = check_line_name(r_regimen, line.drug_summary, cases.line_name)
   line.name = check_line_name$line_name
   line.line_start = check_line_name$line_start
+  has_line_name_exemption = check_line_name$line_switched
+  
   
   # Compute Line Type
   tmp.line_regimen = strsplit(line.name,',')[[1]]
@@ -189,9 +198,21 @@ get_line_data = function(df, r_regimen, l_disgap, l_line_number, l_is_next_maint
   ########### Compute remaining final outputs ############
   if (!line.is_maintenance) {line.line_number = line.line_number + 1}
   if (line.type == "combo") {line.is_maintenance = FALSE}
-  
+
   ############# RETURN #############
-  return(list("line_name" = line.name, "line_type" = line.type, "line_start" = line.line_start, "line_end" = line.end_date, "line_next_start" = line.next_start, "line_end_reason" = line.end_reason, "line_number" = line.line_number, "line_is_maintenance" = line.is_maintenance, "line_is_next_maintenance" = line.is_next_maintenance))
+  return(list("line_name" = line.name, 
+              "line_type" = line.type, 
+              "line_start" = line.line_start, 
+              "line_end" = line.end_date, 
+              "line_next_start" = line.next_start, 
+              "line_end_reason" = line.end_reason, 
+              "line_number" = line.line_number, 
+              "line_is_maintenance" = line.is_maintenance, 
+              "line_is_next_maintenance" = line.is_next_maintenance,
+              "line_add_exemption" = has_eligible_drug_addition,
+              "line_sub_exemption" = has_eligible_drug_substition,
+              "line_gap_exemption" = has_gap_exemption,
+              "line_name_exemption" = has_line_name_exemption))
   
 }
 

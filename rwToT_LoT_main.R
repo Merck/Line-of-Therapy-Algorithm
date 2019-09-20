@@ -66,6 +66,7 @@ input.data$LAST_ACTIVITY_DATE = as.Date(input.data$LAST_ACTIVITY_DATE, format = 
 input.data$LAST_ENROLLMENT_DATE = as.Date(input.data$LAST_ACTIVITY_DATE, format = "%Y-%m-%d")
 input.data$FIRST_INDEX = as.Date(input.data$FIRST_INDEX, format = "%Y-%m-%d")
 
+
 ##################################################
 ### Blank template of final output to be saved ###
 ##################################################
@@ -76,6 +77,10 @@ output_lot = data.frame(PATIENT_ID=character(),
                     END_DATE = as.Date(character()),
                     LINE_TYPE = character(),
                     IS_MAINTENANCE = logical(),
+                    ADD_EXEMPTION = logical(),
+                    SUB_EXEMPTION = logical(),
+                    GAP_EXEMPTION = logical(),
+                    NAME_EXEMPTION = logical(),
                     LAST_ACTIVITY_DATE = as.Date(character()),
                     LAST_ENROLLMENT_DATE = as.Date(character()),
                     LINE_END_REASON = character(),
@@ -128,6 +133,15 @@ for (i in 1:length(input.unique_patients)) {
     tmp.line_number = tmp.f_line_data$line_number
     tmp.line_is_maintenance = tmp.f_line_data$line_is_maintenance
     tmp.is_next_maintenance = tmp.f_line_data$line_is_next_maintenance
+    tmp.line_add_exemption = tmp.f_line_data$line_add_exemption
+    tmp.line_sub_exemption = tmp.f_line_data$line_sub_exemption
+    tmp.line_gap_exemption = tmp.f_line_data$line_gap_exemption
+    tmp.line_name_exemption = tmp.f_line_data$line_name_exemption
+    
+    #print(tmp.line_add_exemption)
+    #print(tmp.line_sub_exemption)
+    #print(tmp.line_gap_exemption)
+    #print(tmp.line_name_exemption)
     
     # Acquire dosage information associated with this line
     if (is.null(tmp.line_next_start) || is.na(tmp.line_next_start)) {
@@ -145,6 +159,10 @@ for (i in 1:length(input.unique_patients)) {
                             "END_DATE" = tmp.line_end,
                             "LINE_TYPE" = tmp.line_type,
                             "IS_MAINTENANCE" = tmp.line_is_maintenance,
+                            "ADD_EXEMPTION" = tmp.line_add_exemption,
+                            "SUB_EXEMPTION" = tmp.line_sub_exemption,
+                            "GAP_EXEMPTION" = tmp.line_gap_exemption,
+                            "NAME_EXEMPTION" = tmp.line_name_exemption,
                             "LAST_ACTIVITY_DATE" = input.last_activity_date,
                             "LAST_ENROLLMENT_DATE" = input.last_enrollment_date,
                             "LINE_END_REASON" = tmp.line_end_reason,
