@@ -70,6 +70,10 @@ The relevant line information the execution will extract are as below:
 * Line end reason (debugging information to see why the line has ended)
 * Line is Maintenance (a flag to indicate if the line if a maintenance therapy)
 * Line Treatment Naïve (a flag to indicate if previous regimen history was detected prior to the patient’s first index drug administration)
+* Flag for if drug addition exemption rule is triggered
+* Flag for if drug substitution exemption rule is triggered
+* Flag for if drug episode gap exemption rule is triggered
+* Flag for if regimen switch rule is triggered
 
 
 The script initial hardcoded parameters are:
