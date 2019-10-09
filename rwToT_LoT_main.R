@@ -43,10 +43,10 @@ library("dplyr")
 ### hardcoded input parameters ###
 ##################################
 input.r_window = 28
-input.l_disgap = 90
+input.l_disgap = 120
 input.indication = "NSCLC"
 input.database = "Test"
-input.filename = "claims_all.csv"
+input.filename = "test.csv"
 input.outfile = "test"
 
 source("rwToT_LoT_import.R")
@@ -65,7 +65,8 @@ input.data$MED_END = as.Date(input.data$MED_END, format = "%Y-%m-%d")
 input.data$LAST_ACTIVITY_DATE = as.Date(input.data$LAST_ACTIVITY_DATE, format = "%Y-%m-%d")
 input.data$LAST_ENROLLMENT_DATE = as.Date(input.data$LAST_ACTIVITY_DATE, format = "%Y-%m-%d")
 input.data$FIRST_INDEX = as.Date(input.data$FIRST_INDEX, format = "%Y-%m-%d")
-
+input.data$LAST_DOSE = as.Date(input.data$LAST_DOSE, format = "%Y-%m-%d")
+input.data$MED_NAME = tolower(input.data$MED_NAME)
 
 ##################################################
 ### Blank template of final output to be saved ###
@@ -123,7 +124,7 @@ for (i in 1:length(input.unique_patients)) {
     tmp.regimen = get_regimen(tmp.data, input.r_window)
     
     # Acquire rest of line data
-    tmp.f_line_data = get_line_data(tmp.data, tmp.regimen, input.l_disgap, tmp.line_number, tmp.is_next_maintenance)
+    tmp.f_line_data = get_line_data(tmp.data, tmp.regimen, input.l_disgap, tmp.line_number, tmp.is_next_maintenance, input.r_window)
     tmp.line_name = tmp.f_line_data$line_name
     tmp.line_type = tmp.f_line_data$line_type
     tmp.line_start = tmp.f_line_data$line_start
@@ -137,11 +138,6 @@ for (i in 1:length(input.unique_patients)) {
     tmp.line_sub_exemption = tmp.f_line_data$line_sub_exemption
     tmp.line_gap_exemption = tmp.f_line_data$line_gap_exemption
     tmp.line_name_exemption = tmp.f_line_data$line_name_exemption
-    
-    #print(tmp.line_add_exemption)
-    #print(tmp.line_sub_exemption)
-    #print(tmp.line_gap_exemption)
-    #print(tmp.line_name_exemption)
     
     # Acquire dosage information associated with this line
     if (is.null(tmp.line_next_start) || is.na(tmp.line_next_start)) {
@@ -183,8 +179,8 @@ for (i in 1:length(input.unique_patients)) {
     
     # Cut the data to the next line
     if (is.null(tmp.line_next_start) || is.na(tmp.line_next_start)) {break}
-    tmp.cut = cut_to_first_dose(tmp.data, tmp.line_next_start, 0,0)
-    tmp.data = tmp.cut$df
+    tmp.cut = snip_dataframe(tmp.data, tmp.line_next_start)
+    tmp.data = tmp.cut$after
   }
 }
 

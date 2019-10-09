@@ -137,10 +137,10 @@ is_eligible_drug_addition = function(drug_name, cases_additions) {
 ### Input: regimen, line number, drug group (for combo), and list of special cases for maintenance ###
 ### Output: True or False                                                                          ###
 ######################################################################################################
-is_maintenance = function(regimen, cases_maintenance, line_number, type) {
+is_eligible_switch_maintenance = function(regimen, cases_maintenance, line_number) {
   regimen = sapply(regimen, toupper)
-  cases_maintenance = as.data.frame(cases_maintenance) %>% filter(maintenance_type == type)
-  return(is.element(regimen,cases_maintenance$drug_name) && line_number == 1)
+  cases_maintenance = as.data.frame(cases_maintenance) %>% filter(maintenance_type == "SWITCH")
+  return(!is.element(FALSE,regimen %in% cases_maintenance$drug_name) && line_number == 1)
 }
 
 is_eligible_continuation_maintenance = function(regimen, cases_maintenance, line_number, drug_group) {
@@ -148,17 +148,17 @@ is_eligible_continuation_maintenance = function(regimen, cases_maintenance, line
   regimen = sapply(regimen, toupper)
   drug_group = as.data.frame(sapply(drug_group, toupper))
   drug_group = drug_group[drug_group$MED_NAME %in% regimen,]
-  cases_maintenance = as.data.frame(cases_maintenance)
+  cases_maintenance = as.data.frame(cases_maintenance) %>% filter(maintenance_type == "CONTINUATION")
   intersect = intersect(regimen, cases_maintenance$drug_name)
   
   #make sure we have existence of maintenance therapy
   if(length(intersect) == 0) {return(FALSE)}
   
-  is_maintenance_drug = is.element(0,drug_group$DROPPED[drug_group$MED_NAME %in% intersect])
-  is_dropped_drug = (min(as.numeric(as.character(drug_group$DROPPED[!drug_group$MED_NAME %in% intersect]))) == 1)
+  # Check if the undropped drug is a maintenance drop
+  is_maintenance_therapy = !is.element(FALSE,drug_group$MED_NAME[drug_group$DROPPED==0] %in% intersect)
   
-  #make sure at least one maintenance drug is continued and one non-maintenance drug is dropped
-  return(is_maintenance_drug && is_dropped_drug && line_number == 0)
+  #make sure at least one maintenance drug is continued and all non-maintenance drug is dropped
+  return(is_maintenance_therapy && line_number == 0)
 }
 
 ##############################################################################################
@@ -190,25 +190,13 @@ is_excluded_from_gap = function(regimen, remaining_drugs, cases_episode_gap) {
 ### Inputs: 1) claims dataframe, 2) index_date (also serves as cut point), 3) before window cut safezone, 4) after window cut safezone  ###
 ### Outputs: 1) claims dataframe                                                                                                        ###
 ###########################################################################################################################################
-cut_to_first_dose = function(df, cut_date, i_window_before, i_window_after) {
-  remains = NULL
-  
-  #Scan through every row and remove it until one row's medication start date hits the defined window
-  for(i in 1:nrow(df)) 
-  {
-    MED_START = df[i,'MED_START']
-    MED_END = df[i,'MED_END']
-    
-    if (MED_START <= (cut_date+i_window_after) & MED_START >= (cut_date-i_window_before)) {
-      found = TRUE
-      if (i==1) {break}
-      remains = unique(df[1:i-1,'MED_NAME'])
-      df = df[-(1:i-1), ]
-      break
-    }
-  }
+snip_dataframe = function(df, cut_date) {
+
+  df_after = df %>% filter(MED_START >= cut_date)
+  df_before = df %>% filter(MED_START < cut_date)
+
   ############# RETURN #############
-  return(list("df" = df, "remains" = remains))
+  return(list("after" = df_after, "before" = df_before))
 }
 
 
@@ -218,12 +206,12 @@ cut_to_first_dose = function(df, cut_date, i_window_before, i_window_after) {
 ### Inputs: 1) claims dataframe, 2) line end date                                                                                       ###
 ### Outputs: drug summary dataframe                                                                                                     ###
 ###########################################################################################################################################
-get_drug_summary = function(df, line.end_date) {
+get_drug_summary = function(df, input.r_window, line.end_date) {
   
   line.df = df %>% filter(MED_START <= line.end_date) %>% arrange(MED_START)
   drug_summary = line.df %>% group_by(MED_NAME) %>% summarise(LAST_SEEN = max(MED_END), FIRST_SEEN = min(MED_START))
   drug_summary$DROPPED = 0
-  drug_summary$DROPPED[line.end_date - drug_summary$LAST_SEEN > 21] = 1
+  drug_summary$DROPPED[line.end_date - drug_summary$LAST_SEEN > input.r_window] = 1
   drug_summary$PATIENT_ID = line.df[1,'PATIENT_ID']
   
   ############# RETURN #############
