@@ -179,7 +179,6 @@ get_line_data = function(df, r_regimen, l_disgap, l_line_number, l_is_next_maint
   
   ########### Compute remaining final outputs ############
   if (!line.is_maintenance) {line.line_number = line.line_number + 1}
-  if (line.type == "combo") {line.is_maintenance = FALSE}
 
   ############# RETURN #############
   return(list("line_name" = line.name, 

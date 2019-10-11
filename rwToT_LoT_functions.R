@@ -155,7 +155,7 @@ is_eligible_continuation_maintenance = function(regimen, cases_maintenance, line
   if(length(intersect) == 0) {return(FALSE)}
   
   # Check if the undropped drug is a maintenance drop
-  is_maintenance_therapy = !is.element(FALSE,drug_group$MED_NAME[drug_group$DROPPED==0] %in% intersect)
+  is_maintenance_therapy = !is.element(FALSE,drug_group$MED_NAME[drug_group$DROPPED==0] %in% intersect) && is.element(TRUE,drug_group$MED_NAME[drug_group$DROPPED==1])
   
   #make sure at least one maintenance drug is continued and all non-maintenance drug is dropped
   return(is_maintenance_therapy && line_number == 0)

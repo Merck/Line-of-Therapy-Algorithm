@@ -46,8 +46,8 @@ input.r_window = 28
 input.l_disgap = 120
 input.indication = "NSCLC"
 input.database = "Test"
-input.filename = "test.csv"
-input.outfile = "test"
+input.filename = "fakedat2.csv"
+input.outfile = "fakedat2"
 
 source("rwToT_LoT_import.R")
 source("rwToT_LoT_line.R")
@@ -183,6 +183,7 @@ for (i in 1:length(input.unique_patients)) {
     tmp.data = tmp.cut$after
   }
 }
+print(output_lot)
 
 write.csv(output_lot, file=paste("output/",input.indication,"/",input.database,"/output_lot_",input.outfile,".csv",sep=''), row.names=FALSE)
 write.csv(output_doses, file=paste("output/",input.indication,"/",input.database,"/output_doses_",input.outfile,".csv",sep=''), row.names=FALSE)
