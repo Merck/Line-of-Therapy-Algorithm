@@ -144,7 +144,6 @@ is_eligible_switch_maintenance = function(regimen, cases_maintenance, line_numbe
 }
 
 is_eligible_continuation_maintenance = function(regimen, cases_maintenance, line_number, drug_group) {
-  
   regimen = sapply(regimen, toupper)
   drug_group = as.data.frame(sapply(drug_group, toupper))
   drug_group = drug_group[drug_group$MED_NAME %in% regimen,]
@@ -155,7 +154,7 @@ is_eligible_continuation_maintenance = function(regimen, cases_maintenance, line
   if(length(intersect) == 0) {return(FALSE)}
   
   # Check if the undropped drug is a maintenance drop
-  is_maintenance_therapy = !is.element(FALSE,drug_group$MED_NAME[drug_group$DROPPED==0] %in% intersect) && is.element(TRUE,drug_group$MED_NAME[drug_group$DROPPED==1])
+  is_maintenance_therapy = !is.element(FALSE,drug_group$MED_NAME[drug_group$DROPPED==0] %in% intersect) && length(drug_group$MED_NAME[drug_group$DROPPED==1]) >= 1
   
   #make sure at least one maintenance drug is continued and all non-maintenance drug is dropped
   return(is_maintenance_therapy && line_number == 0)

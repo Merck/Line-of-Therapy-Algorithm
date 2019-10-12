@@ -1,0 +1,8 @@
+"PATIENT_ID","MED_START","MED_END","MED_NAME","LINE_NUMBER","LINE_NAME"
+10032,2016-09-15,2016-09-15,"Nivolumab",1,"Nivolumab,Pemetrexed"
+10032,2016-09-15,2016-09-15,"Pemetrexed",1,"Nivolumab,Pemetrexed"
+10032,2016-10-15,2016-10-15,"Nivolumab",1,"Nivolumab,Pemetrexed"
+10032,2016-10-15,2016-10-15,"Pemetrexed",1,"Nivolumab,Pemetrexed"
+10032,2016-11-15,2016-11-15,"Pemetrexed",1,"Pemetrexed"
+10032,2016-12-27,2016-12-27,"Pemetrexed",1,"Pemetrexed"
+10032,2016-12-29,2016-12-29,"Pemetrexed",1,"Pemetrexed"
