@@ -156,6 +156,7 @@ get_line_data = function(df, r_regimen, l_disgap, l_line_number, l_is_next_maint
 
   # Check to see if the current line is maintenance therapy
   if (line.line_number == 1) {
+    
     if (line.is_next_maintenance) {
       line.is_maintenance = TRUE
     }
@@ -166,11 +167,11 @@ get_line_data = function(df, r_regimen, l_disgap, l_line_number, l_is_next_maint
   }
   # Check for continuation maintenance therapy within the combo treatment
   else if (line.type == "combo" && line.line_number == 0) {
-
     line.is_next_maintenance = is_eligible_continuation_maintenance(r_regimen, cases.line_maintenance, line.line_number, line.drug_summary)
-
+    
     # If the line is eligible for maintenance and is combo, then split it
     if (line.is_next_maintenance) {
+      line.was_previous_maintenance = TRUE
       tmp.drug_group_dropped = line.drug_summary %>% filter(DROPPED == 1)
       line.next_start = as.Date(max(tmp.drug_group_dropped$LAST_SEEN), format = "%Y-%m-%d") + input.r_window
       line.end_reason = "Entering continuation maintenance therapy"
@@ -178,7 +179,7 @@ get_line_data = function(df, r_regimen, l_disgap, l_line_number, l_is_next_maint
   }
   
   ########### Compute remaining final outputs ############
-  if (!line.is_maintenance) {line.line_number = line.line_number + 1}
+  if (!line.is_maintenance || line.line_number == 1) {line.line_number = line.line_number + 1}
 
   ############# RETURN #############
   return(list("line_name" = line.name, 
