@@ -7,9 +7,9 @@ Authors: Weilin Meng, Wanmei Ou, Wynona Black, Xin Chen, Sheenu Chandwani, Zhaoh
 
 Copyright© 2019 Merck Sharp & Dohme Corp. a subsidiary of Merck & Co., Inc., Kenilworth, NJ, USA.
 
-Last updated: 09/16/2019
+Last updated: 11/13/2019
 
-## NOTE: If there is interest in contributing to the algorithm, then please contact Weilin Meng (weilin.meng@merck.com)
+##### NOTE: If there is interest in contributing to the algorithm, then please contact Weilin Meng (weilin.meng@merck.com)
 
 
 Introduction
