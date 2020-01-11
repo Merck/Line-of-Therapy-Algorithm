@@ -153,7 +153,6 @@ get_line_data = function(df, r_regimen, l_disgap, l_line_number, l_is_next_maint
   tmp.line_regimen = strsplit(line.name,',')[[1]]
   line.type = ifelse(length(tmp.line_regimen) == 1,"mono","combo")
   
-
   # Check to see if the current line is maintenance therapy
   if (line.line_number == 1) {
     

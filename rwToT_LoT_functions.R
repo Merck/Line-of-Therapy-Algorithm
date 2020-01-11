@@ -150,12 +150,17 @@ is_eligible_continuation_maintenance = function(regimen, cases_maintenance, line
   cases_maintenance = as.data.frame(cases_maintenance) %>% filter(maintenance_type == "CONTINUATION")
   intersect = intersect(regimen, cases_maintenance$drug_name)
   
-  #make sure we have existence of maintenance therapy
+  #make sure we have existence of maintenance therapy drug
   if(length(intersect) == 0) {return(FALSE)}
   
   # Check if the undropped drug is a maintenance drop
-  is_maintenance_therapy = !is.element(FALSE,drug_group$MED_NAME[drug_group$DROPPED==0] %in% intersect) && length(drug_group$MED_NAME[drug_group$DROPPED==1]) >= 1
-  
+  # Step 1: Checked for undropped drugs and check that all undropped drugs are maintenance drugs
+  # Step 2: Checked that there are at least 1 dropped drug
+  # Step 3: Checked that not all the drugs are dropped
+  is_maintenance_therapy = !is.element(FALSE,drug_group$MED_NAME[drug_group$DROPPED==0] %in% intersect) && 
+                            length(drug_group$MED_NAME[drug_group$DROPPED==1]) >= 1 &&
+                            length(drug_group$MED_NAME[drug_group$DROPPED==1]) < length(drug_group$MED_NAME)
+
   #make sure at least one maintenance drug is continued and all non-maintenance drug is dropped
   return(is_maintenance_therapy && line_number == 0)
 }

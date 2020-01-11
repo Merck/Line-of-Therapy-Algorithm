@@ -46,7 +46,7 @@ input.r_window = 28
 input.l_disgap = 120
 input.indication = "NSCLC"
 input.database = "Test"
-input.filename = "test.csv"
+input.filename = "exampleclaimsdata.csv"
 input.outfile = "test"
 
 source("rwToT_LoT_import.R")
@@ -60,12 +60,12 @@ input.data = unique(as.data.frame(read.csv(paste("data/",input.indication,"/",in
 
 input.unique_patients = unique(input.data$PATIENT_ID)
 
-input.data$MED_START = as.Date(input.data$MED_START, format = "%Y-%m-%d")
-input.data$MED_END = as.Date(input.data$MED_END, format = "%Y-%m-%d")
-input.data$LAST_ACTIVITY_DATE = as.Date(input.data$LAST_ACTIVITY_DATE, format = "%Y-%m-%d")
-input.data$LAST_ENROLLMENT_DATE = as.Date(input.data$LAST_ACTIVITY_DATE, format = "%Y-%m-%d")
-input.data$FIRST_INDEX = as.Date(input.data$FIRST_INDEX, format = "%Y-%m-%d")
-input.data$LAST_DOSE = as.Date(input.data$LAST_DOSE, format = "%Y-%m-%d")
+input.data$MED_START = as.Date(input.data$MED_START, tryFormats = c("%Y-%m-%d", "%m/%d/%y"))
+input.data$MED_END = as.Date(input.data$MED_END, tryFormats = c("%Y-%m-%d", "%m/%d/%y"))
+input.data$LAST_ACTIVITY_DATE = as.Date(input.data$LAST_ACTIVITY_DATE, tryFormats = c("%Y-%m-%d", "%m/%d/%y"))
+input.data$LAST_ENROLLMENT_DATE = as.Date(input.data$LAST_ACTIVITY_DATE, tryFormats = c("%Y-%m-%d", "%m/%d/%y"))
+input.data$FIRST_INDEX = as.Date(input.data$FIRST_INDEX, tryFormats = c("%Y-%m-%d", "%m/%d/%y"))
+input.data$LAST_DOSE = as.Date(input.data$LAST_DOSE, tryFormats = c("%Y-%m-%d", "%m/%d/%y"))
 input.data$MED_NAME = tolower(input.data$MED_NAME)
 
 ##################################################
