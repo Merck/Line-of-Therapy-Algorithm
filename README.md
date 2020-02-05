@@ -1,7 +1,7 @@
 Line of Therapy Algorithm
 ========================================
 
-This is the Line of Therapy Algorithm, as described in the paper "Temporal phenotyping by mining healthcare data to derive lines of therapy for cancer" accepted in the Journal of Biomedical Informatics.
+This is the Line of Therapy Algorithm, as described in the paper "Temporal phenotyping by mining healthcare data to derive lines of therapy for cancer" accepted in the Journal of Biomedical Informatics." https://www.ncbi.nlm.nih.gov/pubmed/31689549
 
 Authors: Weilin Meng, Wanmei Ou, Wynona Black, Xin Chen, Sheenu Chandwani, Zhaohui Cai
 
