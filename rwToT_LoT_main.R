@@ -43,7 +43,7 @@ library("dplyr")
 ### hardcoded input parameters ###
 ##################################
 input.r_window = 28
-input.l_disgap = 120
+input.l_disgap = 180
 input.indication = "NSCLC"
 input.database = "Test"
 input.filename = "exampleclaimsdata.csv"

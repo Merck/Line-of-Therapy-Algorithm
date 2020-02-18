@@ -38,10 +38,9 @@ library(Hmisc)
 ### Input: regimen, drug summary, and list of special cases ###
 ### Output: line name                                       ###
 ###############################################################
-check_line_name = function(regimen, drug_summary, cases) {
+check_line_name = function(regimen, drug_summary, cases, regimen_window) {
   # Parameters
   switched = FALSE
-  original_regimen = regimen
   
   # Process data inputs
   drug_summary = drug_summary %>% arrange(FIRST_SEEN)
@@ -57,44 +56,18 @@ check_line_name = function(regimen, drug_summary, cases) {
   
   if (nrow(eligible_drugs) > 0 & nrow(ineligible_drugs) > 0) {
     # If max last seen of an ineligible drug is before the min first seen of an eligible drug, then regimen is switched
-    if (ineligible_drugs_last_seen < eligible_drugs_first_seen) {switched = TRUE}
+    if (ineligible_drugs_last_seen < eligible_drugs_first_seen) {
+      switched = TRUE
+      eligible_drugs = eligible_drugs %>% filter(LAST_SEEN > line.start_date + regimen_window)
+    }
+  } else {
+    ineligible_drugs = ineligible_drugs %>% filter(LAST_SEEN > line.start_date + regimen_window)
+    eligible_drugs = ineligible_drugs
   }
   
   # If switch happened, then regimen is defined by eligible drugs list, otherwise it is from the original regimen
-  if (switched) {
-    regimen = eligible_drugs %>% select(MED_NAME)
-    line.start_date = min(eligible_drugs$FIRST_SEEN)
-  }
-  
-  # Check if regimen and drugs in drug summary are equal
-  #drug_summary = drug_summary %>% filter(LAST_SEEN > line.start_date + 28)
-  #check_drugs = is.element(regimen,drug_summary$MED_NAME)
-  
-  # If not, then check if the FALSE drug is an eligible addition or substitution (which affects the line name)
-  #if (is.element(FALSE,check_drugs)) {
-  #  test = is.element(drug_summary$MED_NAME, regimen$MED_NAME)
-  #  exclusion_index = which(FALSE == test)
-    
-  #  for (i in 1:length(exclusion_index)) {
-  #    index = exclusion_index[i]
-  #    drug_name = drug_summary$MED_NAME[index]
-  #    drug_last_seen = drug_summary$LAST_SEEN[index]
-      
-  #    if (drug_last_seen <= line.start_date + 28) next
-      # Check if it is an eligible addition
-  #    if (is_eligible_drug_addition(drug_name, cases.line_additions)) {
-  #      print("Note: Eligible drug addition found, adding to regimen and line name")
-  #      print("Old information")
-  #      print(drug_summary)
-  #      print(regimen)
-  #      regimen = c(regimen,drug_name)
-  #      print("New information")
-  #      print(regimen)
-  #    }
-      
-      # Check if it is an eligible substitution
-  #  }
-  #}
+  regimen = eligible_drugs %>% select(MED_NAME)
+  line.start_date = min(eligible_drugs$FIRST_SEEN)
 
   regimen = sapply(regimen, capitalize)
   regimen = sort(regimen)

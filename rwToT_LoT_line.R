@@ -143,7 +143,7 @@ get_line_data = function(df, r_regimen, l_disgap, l_line_number, l_is_next_maint
   line.drug_summary = get_drug_summary(df, input.r_window, line.end_date)
   
   # Re-compute line name and line start date
-  check_line_name = check_line_name(r_regimen, line.drug_summary, cases.line_name)
+  check_line_name = check_line_name(r_regimen, line.drug_summary, cases.line_name, input.r_window)
   line.name = check_line_name$line_name
   line.line_start = check_line_name$line_start
   has_line_name_exemption = check_line_name$line_switched
