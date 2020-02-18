@@ -58,10 +58,10 @@ check_line_name = function(regimen, drug_summary, cases, regimen_window) {
     # If max last seen of an ineligible drug is before the min first seen of an eligible drug, then regimen is switched
     if (ineligible_drugs_last_seen < eligible_drugs_first_seen) {
       switched = TRUE
-      eligible_drugs = eligible_drugs %>% filter(LAST_SEEN > line.start_date + regimen_window)
+      if (nrow(ineligible_drugs) > 1) {eligible_drugs = eligible_drugs %>% filter(LAST_SEEN > line.start_date + regimen_window)}
     }
   } else {
-    ineligible_drugs = ineligible_drugs %>% filter(LAST_SEEN > line.start_date + regimen_window)
+    if (nrow(ineligible_drugs) > 1) {ineligible_drugs = ineligible_drugs %>% filter(LAST_SEEN > line.start_date + regimen_window)} 
     eligible_drugs = ineligible_drugs
   }
   
