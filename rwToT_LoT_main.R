@@ -46,7 +46,7 @@ input.r_window = 28
 input.l_disgap = 180
 input.indication = "NSCLC"
 input.database = "Test"
-input.filename = "exampleclaimsdata.csv"
+input.filename = "claims_all.csv"
 input.outfile = "test"
 
 source("rwToT_LoT_import.R")
