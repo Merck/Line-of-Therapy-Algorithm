@@ -73,6 +73,7 @@ get_line_data = function(df, r_regimen, l_disgap, l_line_number, l_is_next_maint
   line.type = ifelse(length(r_regimen) > 1,"combo","mono")
   line.line_number = l_line_number
   line.line_start = NULL
+  line.end_date_less_than_flag = FALSE
   line.is_next_maintenance = l_is_next_maintenance
   
   has_eligible_drug_addition = FALSE
@@ -127,7 +128,13 @@ get_line_data = function(df, r_regimen, l_disgap, l_line_number, l_is_next_maint
       }
       # Check if the next drug is not part of the regimen
       else if (!is.element(next.drug, r_regimen) && !has_eligible_drug_addition && !has_eligible_drug_substition){
-        line.end_date = current.drug_end
+        temp_check_new_regimen = df %>% filter(MED_START == current.drug_end) %>% select(MED_NAME)
+        line.end_date_less_than_flag = is.element(FALSE,temp_check_new_regimen$MED_NAME %in% r_regimen)
+        
+        if (line.end_date_less_than_flag) {temp_line_end_df = df %>% filter(MED_START < current.drug_end) %>% select(MED_START)}
+        else {temp_line_end_df = df %>% filter(MED_START <= current.drug_end) %>% select(MED_START)}
+
+        line.end_date = max(temp_line_end_df$MED_START)
         line.end_reason = "New line started with new drugs"
         line.next_start = next.drug_date
 
@@ -143,7 +150,7 @@ get_line_data = function(df, r_regimen, l_disgap, l_line_number, l_is_next_maint
   line.drug_summary = get_drug_summary(df, input.r_window, line.end_date)
   
   # Re-compute line name and line start date
-  check_line_name = check_line_name(r_regimen, line.drug_summary, cases.line_name, input.r_window)
+  check_line_name = check_line_name(r_regimen, line.drug_summary, cases.line_name)
   line.name = check_line_name$line_name
   line.line_start = check_line_name$line_start
   has_line_name_exemption = check_line_name$line_switched

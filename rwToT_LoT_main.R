@@ -46,7 +46,7 @@ input.r_window = 28
 input.l_disgap = 180
 input.indication = "NSCLC"
 input.database = "Test"
-input.filename = "claims_all.csv"
+input.filename = "exampledata2.csv"
 input.outfile = "test"
 
 source("rwToT_LoT_import.R")
@@ -62,10 +62,6 @@ input.unique_patients = unique(input.data$PATIENT_ID)
 
 input.data$MED_START = as.Date(input.data$MED_START, tryFormats = c("%Y-%m-%d", "%m/%d/%y"))
 input.data$MED_END = as.Date(input.data$MED_END, tryFormats = c("%Y-%m-%d", "%m/%d/%y"))
-input.data$LAST_ACTIVITY_DATE = as.Date(input.data$LAST_ACTIVITY_DATE, tryFormats = c("%Y-%m-%d", "%m/%d/%y"))
-input.data$LAST_ENROLLMENT_DATE = as.Date(input.data$LAST_ACTIVITY_DATE, tryFormats = c("%Y-%m-%d", "%m/%d/%y"))
-input.data$FIRST_INDEX = as.Date(input.data$FIRST_INDEX, tryFormats = c("%Y-%m-%d", "%m/%d/%y"))
-input.data$LAST_DOSE = as.Date(input.data$LAST_DOSE, tryFormats = c("%Y-%m-%d", "%m/%d/%y"))
 input.data$MED_NAME = tolower(input.data$MED_NAME)
 
 ##################################################
@@ -82,8 +78,6 @@ output_lot = data.frame(PATIENT_ID=character(),
                     SUB_EXEMPTION = logical(),
                     GAP_EXEMPTION = logical(),
                     NAME_EXEMPTION = logical(),
-                    LAST_ACTIVITY_DATE = as.Date(character()),
-                    LAST_ENROLLMENT_DATE = as.Date(character()),
                     LINE_END_REASON = character(),
                     ENHANCED_COHORT = character(),
                     INDEX_DATE = as.Date(character()),
@@ -138,6 +132,7 @@ for (i in 1:length(input.unique_patients)) {
     tmp.line_sub_exemption = tmp.f_line_data$line_sub_exemption
     tmp.line_gap_exemption = tmp.f_line_data$line_gap_exemption
     tmp.line_name_exemption = tmp.f_line_data$line_name_exemption
+
     
     # Acquire dosage information associated with this line
     if (is.null(tmp.line_next_start) || is.na(tmp.line_next_start)) {
@@ -159,8 +154,6 @@ for (i in 1:length(input.unique_patients)) {
                             "SUB_EXEMPTION" = tmp.line_sub_exemption,
                             "GAP_EXEMPTION" = tmp.line_gap_exemption,
                             "NAME_EXEMPTION" = tmp.line_name_exemption,
-                            "LAST_ACTIVITY_DATE" = input.last_activity_date,
-                            "LAST_ENROLLMENT_DATE" = input.last_enrollment_date,
                             "LINE_END_REASON" = tmp.line_end_reason,
                             "ENHANCED_COHORT" = input.indication,
                             "INDEX_DATE" = input.index_date)
