@@ -41,6 +41,7 @@ library(Hmisc)
 check_line_name = function(regimen, drug_summary, cases) {
   # Parameters
   switched = FALSE
+  original_regimen = regimen
   
   # Process data inputs
   drug_summary = drug_summary %>% arrange(FIRST_SEEN)
@@ -54,24 +55,35 @@ check_line_name = function(regimen, drug_summary, cases) {
   eligible_drugs = drug_summary %>% filter(MED_NAME %in% cases)
   eligible_drugs_first_seen = min(eligible_drugs$FIRST_SEEN)
   
-  
   if (nrow(eligible_drugs) > 0 & nrow(ineligible_drugs) > 0) {
     # If max last seen of an ineligible drug is before the min first seen of an eligible drug, then regimen is switched
-    if (ineligible_drugs_last_seen < eligible_drugs_first_seen) {
-      switched = TRUE
-      if (nrow(ineligible_drugs) > 1) {eligible_drugs = eligible_drugs %>% filter(LAST_SEEN > FIRST_SEEN)}
-    }
-  } else {
-    if (nrow(ineligible_drugs) > 1) {ineligible_drugs = ineligible_drugs %>% filter(LAST_SEEN > FIRST_SEEN)} 
-    eligible_drugs = ineligible_drugs
+    if (ineligible_drugs_last_seen < eligible_drugs_first_seen) {switched = TRUE}
   }
   
-  if (nrow(eligible_drugs) == 0) {eligible_drugs = drug_summary}
+  # If switch happened, then regimen is defined by eligible drugs list, otherwise it is from the original regimen
+  if (switched) {
+    regimen = eligible_drugs %>% select(MED_NAME)
+    line.start_date = min(eligible_drugs$FIRST_SEEN)
+  }
+  
+  
+#  if (nrow(eligible_drugs) > 0 & nrow(ineligible_drugs) > 0) {
+#    # If max last seen of an ineligible drug is before the min first seen of an eligible drug, then regimen is switched
+#    if (ineligible_drugs_last_seen < eligible_drugs_first_seen) {
+#      switched = TRUE
+#      if (nrow(ineligible_drugs) > 1) {eligible_drugs = eligible_drugs %>% filter(LAST_SEEN > FIRST_SEEN)}
+#    }
+#  } else {
+#    if (nrow(ineligible_drugs) > 1) {ineligible_drugs = ineligible_drugs %>% filter(LAST_SEEN > FIRST_SEEN)} 
+#    eligible_drugs = ineligible_drugs
+#  }
+#  
+#  if (nrow(eligible_drugs) == 0) {eligible_drugs = drug_summary}
   
   # If switch happened, then regimen is defined by eligible drugs list, otherwise it is from the original regimen
 
-  regimen = eligible_drugs %>% select(MED_NAME)
-  line.start_date = min(eligible_drugs$FIRST_SEEN)
+#  regimen = eligible_drugs %>% select(MED_NAME)
+#  line.start_date = min(eligible_drugs$FIRST_SEEN)
 
   regimen = sapply(regimen, capitalize)
   regimen = sort(regimen)
