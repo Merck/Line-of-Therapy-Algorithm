@@ -39,7 +39,7 @@ library(Hmisc)
 ### Input: regimen, drug summary, and list of special cases ###
 ### Output: line name                                       ###
 ###############################################################
-check_line_name = function(regimen, drug_summary, cases, general = FALSE) {
+check_line_name = function(regimen, drug_summary, cases,  input.r_window, input.drug_switch_ignore) {
   # Parameters
   switched = FALSE
   original_regimen = regimen
@@ -50,13 +50,13 @@ check_line_name = function(regimen, drug_summary, cases, general = FALSE) {
   
   # Check if any drugs in the drug summary table are eligible to be checked
 
-  if (general) {
+  if (input.drug_switch_ignore) {
     # Get max last seen date from ineligible drugs, defined as drugs that don't occur after the 28 day regimen window
-    ineligible_drugs = drug_summary %>% filter(LAST_SEEN <= line.start_date+28)
+    ineligible_drugs = drug_summary %>% filter(LAST_SEEN <= line.start_date+input.r_window)
     ineligible_drugs_last_seen = max(ineligible_drugs$LAST_SEEN)
     
     # Get all the eligible drugs min first seen date. Eligivle drugs are defined as drugs that occur after the 28 day regimen window
-    eligible_drugs = drug_summary %>% filter(LAST_SEEN > line.start_date+28)
+    eligible_drugs = drug_summary %>% filter(LAST_SEEN > line.start_date+input.r_window)
     eligible_drugs_first_seen = min(eligible_drugs$FIRST_SEEN)
   } else {
     # Get max last seen date from ineligible drugs
