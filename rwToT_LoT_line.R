@@ -67,7 +67,7 @@ get_regimen = function(df, r_window) {
 ### 6. Second pass- analyze if the treatment is maintenance therapy. If it is, then label it as such and do not advance line number                                      ###
 ### 7. Compute final outputs and return it                                                                                                                               ###
 ############################################################################################################################################################################
-get_line_data = function(df, r_regimen, l_disgap, l_line_number, l_is_next_maintenance, input.r_window) {
+get_line_data = function(df, r_regimen, l_disgap, l_line_number, l_is_next_maintenance, input.r_window, input.drug_switch_ignore, input.combo_dropped_line_advance) {
   # Set assumptions
   line.is_maintenance = FALSE
   line.type = ifelse(length(r_regimen) > 1,"combo","mono")
@@ -150,15 +150,27 @@ get_line_data = function(df, r_regimen, l_disgap, l_line_number, l_is_next_maint
   line.drug_summary = get_drug_summary(df, input.r_window, line.end_date)
   
   # Re-compute line name and line start date
-  check_line_name = check_line_name(r_regimen, line.drug_summary, cases.line_name)
+  check_line_name = check_line_name(r_regimen, line.drug_summary, cases.line_name, input.drug_switch_ignore)
   line.name = check_line_name$line_name
   line.line_start = check_line_name$line_start
   has_line_name_exemption = check_line_name$line_switched
   
-  
   # Compute Line Type
   tmp.line_regimen = strsplit(line.name,',')[[1]]
   line.type = ifelse(length(tmp.line_regimen) == 1,"mono","combo")
+  
+  # Re-compute if combo therapy dropped drugs should trigger a new line
+  if (line.type == "combo" && input.combo_dropped_line_advance) {
+    check_combo_dropped_drugs = check_combo_dropped_drugs(line.drug_summary, line.end_date, line.next_start, line.end_reason)
+    line.end_date = check_combo_dropped_drugs$line_end_date
+    line.end_reason = check_combo_dropped_drugs$line_end_reason
+    line.next_start = check_combo_dropped_drugs$line_next_start
+    print(line.drug_summary)
+    print(line.next_start)
+    print(line.end_date)
+    print(df)
+  }
+
   
   # Check to see if the current line is maintenance therapy
   if (line.line_number == 1) {

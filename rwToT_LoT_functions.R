@@ -27,10 +27,11 @@ library(Hmisc)
 
 # This script contains functions that performs checks for special cases and exceptions in determining Line of Therapy:
 # 1. check_line_name function checks for special cases to determine line name (i.e. If within 28 days patient switches to EGFR, ALK, PD-1/PD-L1, then regimen is called that)
-# 2. is_eligible_drug_substitutions function checks for substitutions that do not advance line number (i.e. substitution of cisplatin for carboplatin and vice-versa)
-# 3. is_eligible_drug_addition function checks for additions that do not advance the line number (i.e. Bevocizumab)
-# 4. is_eligible_mono_maintenance and is_eligible_combo_maintenance checks for maintenance therapy eligibility (i.e. Pemetrexed, erlotinib and bevacizumab are eligible, depending on how they behave in mono/combo)
-# 5. is_excluded_from_gap checks if line advancement should not occur after 120 days gap if it involves certain drugs
+# 2. check_combo_dropped_drugs checks to see if we should advance to a new line if a drug in a combo regimen is dropped
+# 3. is_eligible_drug_substitutions function checks for substitutions that do not advance line number (i.e. substitution of cisplatin for carboplatin and vice-versa)
+# 4. is_eligible_drug_addition function checks for additions that do not advance the line number (i.e. Bevocizumab)
+# 5. is_eligible_mono_maintenance and is_eligible_combo_maintenance checks for maintenance therapy eligibility (i.e. Pemetrexed, erlotinib and bevacizumab are eligible, depending on how they behave in mono/combo)
+# 6. is_excluded_from_gap checks if line advancement should not occur after 120 days gap if it involves certain drugs
 
 ###############################################################
 ### Check Line Name Function                                ###
@@ -38,7 +39,7 @@ library(Hmisc)
 ### Input: regimen, drug summary, and list of special cases ###
 ### Output: line name                                       ###
 ###############################################################
-check_line_name = function(regimen, drug_summary, cases) {
+check_line_name = function(regimen, drug_summary, cases, general = FALSE) {
   # Parameters
   switched = FALSE
   original_regimen = regimen
@@ -48,16 +49,28 @@ check_line_name = function(regimen, drug_summary, cases) {
   line.start_date = min(drug_summary$FIRST_SEEN)
   
   # Check if any drugs in the drug summary table are eligible to be checked
-  # Get max last seen date from ineligible drugs
-  ineligible_drugs = drug_summary %>% filter(!MED_NAME %in% cases)
-  ineligible_drugs_last_seen = max(ineligible_drugs$LAST_SEEN)
-  # Get all the eligible drugs min first seen date
-  eligible_drugs = drug_summary %>% filter(MED_NAME %in% cases)
-  eligible_drugs_first_seen = min(eligible_drugs$FIRST_SEEN)
+
+  if (general) {
+    # Get max last seen date from ineligible drugs, defined as drugs that don't occur after the 28 day regimen window
+    ineligible_drugs = drug_summary %>% filter(LAST_SEEN <= line.start_date+28)
+    ineligible_drugs_last_seen = max(ineligible_drugs$LAST_SEEN)
+    
+    # Get all the eligible drugs min first seen date. Eligivle drugs are defined as drugs that occur after the 28 day regimen window
+    eligible_drugs = drug_summary %>% filter(LAST_SEEN > line.start_date+28)
+    eligible_drugs_first_seen = min(eligible_drugs$FIRST_SEEN)
+  } else {
+    # Get max last seen date from ineligible drugs
+    ineligible_drugs = drug_summary %>% filter(!MED_NAME %in% cases)
+    ineligible_drugs_last_seen = max(ineligible_drugs$LAST_SEEN)
+    # Get all the eligible drugs min first seen date
+    eligible_drugs = drug_summary %>% filter(MED_NAME %in% cases)
+    eligible_drugs_first_seen = min(eligible_drugs$FIRST_SEEN)
+  }
+
   
   if (nrow(eligible_drugs) > 0 & nrow(ineligible_drugs) > 0) {
     # If max last seen of an ineligible drug is before the min first seen of an eligible drug, then regimen is switched
-    if (ineligible_drugs_last_seen < eligible_drugs_first_seen) {switched = TRUE}
+    if (ineligible_drugs_last_seen <= eligible_drugs_first_seen) {switched = TRUE}
   }
   
   # If switch happened, then regimen is defined by eligible drugs list, otherwise it is from the original regimen
@@ -65,25 +78,6 @@ check_line_name = function(regimen, drug_summary, cases) {
     regimen = eligible_drugs %>% select(MED_NAME)
     line.start_date = min(eligible_drugs$FIRST_SEEN)
   }
-  
-  
-#  if (nrow(eligible_drugs) > 0 & nrow(ineligible_drugs) > 0) {
-#    # If max last seen of an ineligible drug is before the min first seen of an eligible drug, then regimen is switched
-#    if (ineligible_drugs_last_seen < eligible_drugs_first_seen) {
-#      switched = TRUE
-#      if (nrow(ineligible_drugs) > 1) {eligible_drugs = eligible_drugs %>% filter(LAST_SEEN > FIRST_SEEN)}
-#    }
-#  } else {
-#    if (nrow(ineligible_drugs) > 1) {ineligible_drugs = ineligible_drugs %>% filter(LAST_SEEN > FIRST_SEEN)} 
-#    eligible_drugs = ineligible_drugs
-#  }
-#  
-#  if (nrow(eligible_drugs) == 0) {eligible_drugs = drug_summary}
-  
-  # If switch happened, then regimen is defined by eligible drugs list, otherwise it is from the original regimen
-
-#  regimen = eligible_drugs %>% select(MED_NAME)
-#  line.start_date = min(eligible_drugs$FIRST_SEEN)
 
   regimen = sapply(regimen, capitalize)
   regimen = sort(regimen)
@@ -92,7 +86,26 @@ check_line_name = function(regimen, drug_summary, cases) {
   return(list("line_name" = line.name, "line_start" = line.start_date, "line_switched" = switched))
 }
 
-
+###################################################################################
+### Check Combo Dropped Drugs Function                                          ###
+### This checks to see if combo dropped drugs should trigger a new line         ###
+### Input: drug summary, line end date, line next start date, line end reason   ###
+### Output: line name                                                           ###
+###################################################################################
+check_combo_dropped_drugs = function(drug_summary, line.end_date, line.next_start, line.end_reason) {
+  # Get the list of dropped and undropped drugs
+  undropped_drugs = drug_summary %>% filter(DROPPED == 0)
+  dropped_drugs = drug_summary %>% filter(DROPPED == 1)
+  
+  if (nrow(dropped_drugs) > 0) {
+    line.end_date = min(dropped_drugs$LAST_SEEN)
+    line.next_start = line.end_date + 1
+    line.end_reason = "Combo drug dropped"
+  }
+  
+  return(list("line_end_date" = line.end_date, "line_next_start" = line.next_start, "line_end_reason" = line.end_reason))
+  
+}
 ##################################################################################
 ### Is eligible drug substitution function                                     ###
 ### This checks for drug substitutions that do not advance the line of therapy ###

@@ -44,6 +44,8 @@ library("dplyr")
 ##################################
 input.r_window = 28
 input.l_disgap = 180
+input.drug_switch_ignore = FALSE
+input.combo_dropped_line_advance = FALSE
 input.indication = "NSCLC"
 input.database = "Test"
 input.filename = "example_input.csv"
@@ -118,7 +120,7 @@ for (i in 1:length(input.unique_patients)) {
     tmp.regimen = get_regimen(tmp.data, input.r_window)
     
     # Acquire rest of line data
-    tmp.f_line_data = get_line_data(tmp.data, tmp.regimen, input.l_disgap, tmp.line_number, tmp.is_next_maintenance, input.r_window)
+    tmp.f_line_data = get_line_data(tmp.data, tmp.regimen, input.l_disgap, tmp.line_number, tmp.is_next_maintenance, input.r_window, input.drug_switch_ignore, input.combo_dropped_line_advance)
     tmp.line_name = tmp.f_line_data$line_name
     tmp.line_type = tmp.f_line_data$line_type
     tmp.line_start = tmp.f_line_data$line_start

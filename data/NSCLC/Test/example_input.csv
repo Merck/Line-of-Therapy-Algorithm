@@ -1,4 +1,5 @@
 ﻿PATIENT_ID,MED_START,MED_END,MED_NAME
+101,4/19/18,4/19/18,carboplatin
 101,4/19/18,4/19/18,pembrolizumab
 101,5/10/18,5/10/18,pembrolizumab
 101,5/29/18,5/29/18,pembrolizumab
@@ -65,3 +66,15 @@
 2,10/22/18,10/22/18,cetuximab
 2,11/12/18,11/12/18,durvalumab
 2,11/26/18,11/26/18,durvalumab
+4,1/1/20,1/1/20,carboplatin
+4,1/1/20,1/1/20,pembrolizumab
+4,1/1/20,1/1/20,pemetrexed
+4,2/1/20,2/1/20,carboplatin
+4,2/1/20,2/1/20,pembrolizumab
+4,2/1/20,2/1/20,pemetrexed
+4,3/1/20,3/1/20,pembrolizumab
+4,3/1/20,3/1/20,pemetrexed
+4,4/1/20,4/1/20,pembrolizumab
+4,4/1/20,4/1/20,pemetrexed
+4,5/1/20,5/1/20,pembrolizumab
+4,5/1/20,5/1/20,pembrolizumab
