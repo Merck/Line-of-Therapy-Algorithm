@@ -15,7 +15,7 @@ Last updated: 04/22/2020
 
 The purpose of having line of therapy rules is to determine the start date, end date, line number and treatment regimen of a patient’s journey toward treating cancer. Typically, this information is not available in an EHR or claims database, but is rather derived from medication history information via business rules. EHR databases most commonly have rules deriving line of therapy due to their availability of medical chart reviews. Claims do not have this information, and therefore special rules and considerations need to be applied when deriving line of therapy information.
 
-Merck has internally developed business rules to take patient drug claims administrations and convert them into line of therapy treatment patterns for the purpose of performing time on treatment analysis on certain drugs. At this moment the Line of Therapy Algorithm is supported for NSCLC, Melanoma and HNSCC indications Oncology indications.
+Merck has internally developed business rules to take patient drug claims administrations and convert them into line of therapy treatment patterns for the purpose of performing downstream analysis such as oncology time on treatment analysis. At this moment the Line of Therapy Algorithm is supported for NSCLC, Melanoma and HNSCC indications Oncology indications.
 
 There are five common parameters that define line of therapy rules:
 1. Index Date Definition – Defining the index date defines when 1L treatment and first drug episode occurs
@@ -34,6 +34,9 @@ However, depending on the indication of interest, these five common parameters a
 Clone or Download from github
 
 ## Getting Started
+
+** NOTE: The Line of Therapy Algorithm is not responsible for cohort selection or eligible drug selection. This pre-processing step should be done by the user before any input to the algorithm **
+
 To use the code:
 1. Open rwToT_LOT_main.R
 2. The file will contain several parameters that can be altered:
