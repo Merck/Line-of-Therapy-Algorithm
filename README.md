@@ -1,4 +1,4 @@
-Line of Therapy Algorithm
+# Line of Therapy Algorithm
 ========================================
 
 This is the Line of Therapy Algorithm, as described in the paper "Temporal phenotyping by mining healthcare data to derive lines of therapy for cancer" accepted in the Journal of Biomedical Informatics." https://www.ncbi.nlm.nih.gov/pubmed/31689549
