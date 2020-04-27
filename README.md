@@ -24,6 +24,7 @@ There are five common parameters that define line of therapy rules:
 4. New Drug Line Advancement – Typically a new drug that is administered outside the treatment regimen will advance the patient to a new line. However, the exact rules that define this behavior may differ between indication
 5. Gaps in Therapy Window – Typically if there is a large gap in drug administered, then that will trigger the end of the current line and start of the next line.
 
+However, depending on the indication of interest, these five common parameters are not entirely comprehensive or have exceptions. The Line of Thereapy Algorithm is an in-depth execution of these parameters, designed to allow for modifications of these parameters.
 
 ## Requirements
 * R (>= 3.5.1) 
