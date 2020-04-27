@@ -6,7 +6,7 @@ Authors: Weilin Meng, Wanmei Ou, Wynona Black, Xin Chen, Sheenu Chandwani, Zhaoh
 
 Copyright© 2019 Merck Sharp & Dohme Corp. a subsidiary of Merck & Co., Inc., Kenilworth, NJ, USA.
 
-Last updated: 11/13/2019
+Last updated: 04/22/2020
 
 ##### NOTE: If there is interest in contributing to the algorithm, then please contact Weilin Meng (weilin.meng@merck.com)
 
@@ -32,6 +32,24 @@ There are five common parameters that define line of therapy rules:
 ## Install
 Clone or Download from github
 
+## Getting Started
+To use the code:
+1. Open rwToT_LOT_main.R
+2. The file will contain several parameters that can be altered:
+
+```
+input.r_window = 28  # Threshold number of days for the regimen defining window to detect combination drugs
+input.l_disgap = 180 # Threshold number of days of gap in administration before advancing the line
+input.drug_switch_ignore = FALSE  # Flag to see if a drug is administered during the r_window period, but never administered again after, then ignore it from the regimen. 
+input.combo_dropped_line_advance = FALSE  # Flag to see if a combination drug is dropped, whether or not it triggers an advance in ine number.
+input.indication = "NSCLC"  # The indication of interest, which also points to the appropriate "NSCLC" folder
+input.database = "Test"  # The folder specifying the data location within the above indication folder
+input.filename = "example_input.csv"  # The file name containing the input data
+input.outfile = "test". # The output file name
+```
+
+3. Make sure your input file is of the same format as "example_input.csv" in the data/NSCLC/test/ folder
+4. Run the file. After the run is complete, you should see your output LOT in your output/{indication}/{database}/ folder
 
 ## Overview
 The LOT code consists of primarily four R script files as well as six reference CSV files. The four script files either run the main execution of the line of therapy calculation, or contain supporting functions that the main execution calls on. 
