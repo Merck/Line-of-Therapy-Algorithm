@@ -49,7 +49,8 @@ input.outfile = "test". # The output file name
 ```
 
 3. Make sure your input file is of the same format as "example_input.csv" in the data/NSCLC/test/ folder
-4. Run the file. After the run is complete, you should see your output LOT in your output/{indication}/{database}/ folder
+4. Edit or alter any of the files in the "reference" folder (see Overview section for more details) that pertain to your use case.
+5. Run the script. After the run is complete, you should see your output LOT in your output/{indication}/{database}/ folder
 
 ## Overview
 The LOT code consists of primarily four R script files as well as six reference CSV files. The four script files either run the main execution of the line of therapy calculation, or contain supporting functions that the main execution calls on. 
