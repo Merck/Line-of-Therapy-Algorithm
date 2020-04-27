@@ -77,7 +77,7 @@ The reference folder contains reference CSV files that are imported via rwToT_Lo
 * Ref_med_name.csv – a csv list that contains drug name mappings to a standardized drug naming convention, and also contains indicators to know when a drug should be excluded from the line of therapy business rule implementation.
 
 
-##### rwToT_LoT_main.R
+#### rwToT_LoT_main.R
 This script is the main execution script that takes the input data, calls on functions from other R scripts to calculate line information, and produces the line of therapy output.
 
 The relevant line information the execution will extract are as below:
@@ -103,12 +103,12 @@ The script initial hardcoded parameters are:
 * Input.database – The database name (Optum, Truven, etc)
 
 
-##### rwToT_LoT_line.R
+#### rwToT_LoT_line.R
 This script contains two functions necessary to calculate necessary line of therapy information:
 1. get_regimen function returns the eligible drugs in a regimen, defined as drugs within a window (28 days) relative to the first drug episode
 2. get_line_data function returns relevant line of therapy information such as line name, line end date, is maintenance therapy, next line start date, line type, and line end reason, etc.
 
 
-##### rwToT_LoT_functions.R
+#### rwToT_LoT_functions.R
 This script contains functions that perform checks on special exemptions, exclusions, and exceptions to the line of therapy business rules as well as helper functions that aid in data manipulation and labeling.
 
