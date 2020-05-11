@@ -6,7 +6,7 @@ Authors: Weilin Meng, Wanmei Ou, Wynona Black, Xin Chen, Sheenu Chandwani, Zhaoh
 
 Copyright© 2019 Merck Sharp & Dohme Corp. a subsidiary of Merck & Co., Inc., Kenilworth, NJ, USA.
 
-Last updated: 04/22/2020
+Last updated: 05/11/2020
 
 ##### NOTE: If there is interest in contributing to the algorithm, then please contact Weilin Meng (weilin.meng@merck.com)
 
@@ -26,9 +26,13 @@ There are five common parameters that define line of therapy rules:
 
 However, depending on the indication of interest, these five common parameters are not entirely comprehensive or have exceptions. The Line of Thereapy Algorithm is an in-depth execution of these parameters, designed to allow for modifications of these parameters.
 
-## Requirements
+## Requirements for R
 * R (>= 3.5.1) 
 * R packages: dplyr, Hmisc, rio
+
+## Requirements for Python
+* Python (>= 3.7)
+* Python libraries: pandas
 
 ## Install
 Clone or Download from github
@@ -36,6 +40,8 @@ Clone or Download from github
 ## Getting Started
 
 ##### NOTE: The Line of Therapy Algorithm is not responsible for cohort selection or eligible drug selection. This pre-processing step should be done by the user before any input to the algorithm **
+
+##### NOTE: The doucmentation is written in the perspective of R. However, the Python version is coded similarily to the R version and so the documentation here should suffice **
 
 To use the code:
 1. Open rwToT_LOT_main.R
