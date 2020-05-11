@@ -1,0 +1,7 @@
+drug_name,maintenance_type
+pemetrexed,continuation
+bevacizumab,continuation
+atezolizumab,continuation
+gemcitabine,continuation
+pemetrexed,switch
+docetaxel,switch
