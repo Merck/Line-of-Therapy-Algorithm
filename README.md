@@ -39,9 +39,9 @@ Clone or Download from github
 
 ## Getting Started
 
-##### NOTE: The Line of Therapy Algorithm is not responsible for cohort selection or eligible drug selection. This pre-processing step should be done by the user before any input to the algorithm **
+##### NOTE: The Line of Therapy Algorithm is not responsible for cohort selection or eligible drug selection. This pre-processing step should be done by the user before any input to the algorithm
 
-##### NOTE: The doucmentation is written in the perspective of R. However, the Python version is coded similarily to the R version and so the documentation here should suffice **
+##### NOTE: The doucmentation is written in the perspective of R. However, the Python version is coded similarily to the R version and so the documentation here should suffice
 
 To use the code:
 1. Open rwToT_LOT_main.R
