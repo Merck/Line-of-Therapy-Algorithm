@@ -1,122 +1,124 @@
-﻿PATIENT_ID,MED_START,MED_END,MED_NAME
-3,4/19/18,4/19/18,carboplatin
-101,4/19/18,4/19/18,pembrolizumab
-101,5/10/18,5/10/18,pembrolizumab
-101,5/29/18,5/29/18,pembrolizumab
-101,6/19/18,6/19/18,pembrolizumab
-101,7/12/18,7/12/18,pembrolizumab
-101,8/2/18,8/2/18,pembrolizumab
-101,8/23/18,8/23/18,pembrolizumab
-101,9/13/18,9/13/18,pembrolizumab
-101,10/4/18,10/4/18,pembrolizumab
-101,10/25/18,10/25/18,pembrolizumab
-101,11/15/18,11/15/18,pembrolizumab
-101,12/6/18,12/6/18,pembrolizumab
-101,12/27/18,12/27/18,pembrolizumab
-101,1/24/19,1/24/19,pembrolizumab
-101,1/24/19,1/24/19,pemetrexed
-101,1/24/19,1/24/19,CARBOplatin
-101,2/14/19,2/14/19,pembrolizumab
-101,2/14/19,2/14/19,pemetrexed
-101,2/14/19,2/14/19,CARBOplatin
-101,3/7/19,3/7/19,pembrolizumab
-101,3/7/19,3/7/19,pemetrexed
-101,3/7/19,3/7/19,CARBOplatin
-101,3/28/19,3/28/19,pembrolizumab
-101,3/28/19,3/28/19,pemetrexed
-101,3/28/19,3/28/19,CARBOplatin
-101,4/18/19,4/18/19,pembrolizumab
-101,4/18/19,4/18/19,pemetrexed
-2,1/14/18,1/14/18,nivolumab
-2,2/3/18,2/3/18,nivolumab
-2,2/18/18,2/18/18,nivolumab
-2,3/4/18,3/4/18,nivolumab
-2,3/4/18,3/4/18,CARBOplatin
-2,3/18/18,3/18/18,nivolumab
-2,3/18/18,3/18/18,CARBOplatin
-2,4/1/18,4/1/18,CARBOplatin
-2,4/1/18,4/1/18,nivolumab
-2,4/14/18,4/14/18,nivolumab
-2,4/14/18,4/14/18,CARBOplatin
-2,4/29/18,4/29/18,nivolumab
-2,4/29/18,4/29/18,CARBOplatin
-2,5/14/18,5/14/18,cetuximab
-2,5/21/18,5/21/18,cetuximab
-2,5/28/18,5/28/18,cetuximab
-2,6/4/18,6/4/18,cetuximab
-2,6/11/18,6/11/18,cetuximab
-2,6/18/18,6/18/18,cetuximab
-2,11/12/18,11/12/18,durvalumab
-2,11/26/18,11/26/18,durvalumab
-4,1/1/20,1/1/20,carboplatin
-4,1/1/20,1/1/20,pembrolizumab
-4,1/1/20,1/1/20,pemetrexed
-4,2/1/20,2/1/20,carboplatin
-4,2/1/20,2/1/20,pembrolizumab
-4,2/1/20,2/1/20,pemetrexed
-4,3/1/20,3/1/20,pembrolizumab
-4,3/1/20,3/1/20,pemetrexed
-4,4/1/20,4/1/20,pembrolizumab
-4,4/1/20,4/1/20,pemetrexed
-4,5/1/20,5/1/20,pembrolizumab
-4,5/1/20,5/1/20,pembrolizumab
-1111,1/1/19,1/1/19,pembrolizumab
-1111,2/1/19,2/1/19,pembrolizumab
-1111,7/1/19,7/1/19,pembrolizumab
-1111,8/1/19,8/1/19,pembrolizumab
-1111,9/1/19,9/1/19,pembrolizumab
-1111,10/1/19,10/1/19,cisplatin
-1111,10/1/19,10/1/19,pemetrexed
-1111,11/4/19,11/4/19,cisplatin
-1111,11/8/19,11/8/19,pemetrexed
-1111,5/2/20,5/2/20,cisplatin
-1111,5/16/20,5/16/20,pemetrexed
-2222,1/1/19,1/1/19,nivolumab
-2222,1/1/19,1/1/19,cisplatin
-2222,2/1/19,2/1/19,nivolumab
-2222,7/1/19,7/1/19,nivolumab
-2222,8/1/19,8/1/19,nivolumab
-2222,9/1/19,9/1/19,nivolumab
-2222,10/1/19,10/1/19,nivolumab
-2222,1/1/20,1/1/20,pembrolizumab
-2222,1/1/20,1/1/20,pemetrexed
-2222,1/1/20,1/1/20,carboplatin
-2222,2/1/20,2/1/20,pembrolizumab
-2222,7/1/20,7/1/20,pembrolizumab
-2222,8/1/20,8/1/20,pembrolizumab
-2222,9/1/20,9/1/20,pembrolizumab
-2222,10/1/20,10/1/20,pembrolizumab
-3333,1/1/20,1/1/20,pembrolizumab
-3333,1/1/20,1/1/20,pemetrexed
-3333,2/2/20,2/2/20,pemetrexed
-3333,2/1/20,2/1/20,pembrolizumab
-3333,3/2/20,3/2/20,pemetrexed
-3333,4/15/20,4/15/20,pemetrexed
-3333,5/8/20,5/8/20,pemetrexed
-3344,1/1/20,1/1/20,pembrolizumab
-3344,1/1/20,1/1/20,carboplatin
-3344,1/1/20,1/1/20,pemetrexed
-3344,2/2/20,2/2/20,pemetrexed
-3344,2/2/20,2/2/20,carboplatin
-3344,2/1/20,2/1/20,pembrolizumab
-3344,3/2/20,3/2/20,pemetrexed
-3344,4/15/20,4/15/20,pemetrexed
-3344,5/8/20,5/8/20,pemetrexed
-4444,1/1/20,1/1/20,pembrolizumab
-4444,2/2/20,2/2/20,pembrolizumab
-4444,2/1/20,2/1/20,pembrolizumab
-4444,3/2/20,3/2/20,pemetrexed
-4444,4/15/20,4/15/20,pemetrexed
-4444,5/8/20,5/8/20,pemetrexed
-5555,1/1/20,1/1/20,erlotinib
-5555,2/2/20,2/2/20,erlotinib
-5555,3/2/20,3/2/20,erlotinib
-5555,10/10/20,10/10/20,erlotinib
-5555,11/10/20,11/10/20,erlotinib
-5555,5/15/21,5/15/21,erlotinib
-6666,10/1/19,10/1/19,cisplatin
-6666,10/1/19,10/1/19,pemetrexed
-6666,11/4/19,11/4/19,cisplatin
-6666,11/8/19,11/8/19,pemetrexed
-6666,5/2/20,5/2/20,carboplatin
-6666,5/16/20,5/16/20,pemetrexed
+﻿PATIENT_ID,MED_START,MED_END,MED_NAME,Expected output,Alternative output
+3,4/19/18,4/19/18,carboplatin,L1 carbplatin,
+101,4/19/18,4/19/18,pembrolizumab,L1 pembrolizumab,
+101,5/10/18,5/10/18,pembrolizumab,L1 pembrolizumab,
+101,5/29/18,5/29/18,pembrolizumab,L1 pembrolizumab,
+101,6/19/18,6/19/18,pembrolizumab,L1 pembrolizumab,
+101,7/12/18,7/12/18,pembrolizumab,L1 pembrolizumab,
+101,8/2/18,8/2/18,pembrolizumab,L1 pembrolizumab,
+101,8/23/18,8/23/18,pembrolizumab,L1 pembrolizumab,
+101,9/13/18,9/13/18,pembrolizumab,L1 pembrolizumab,
+101,10/4/18,10/4/18,pembrolizumab,L1 pembrolizumab,
+101,10/25/18,10/25/18,pembrolizumab,L1 pembrolizumab,
+101,11/15/18,11/15/18,pembrolizumab,L1 pembrolizumab,
+101,12/6/18,12/6/18,pembrolizumab,L1 pembrolizumab,
+101,12/27/18,12/27/18,pembrolizumab,L1 pembrolizumab,
+101,1/24/19,1/24/19,pembrolizumab,"L1 carboplatin, pemetrexed, pembrolizumab",
+101,1/24/19,1/24/19,pemetrexed,"L1 carboplatin, pemetrexed, pembrolizumab",
+101,1/24/19,1/24/19,CARBOplatin,"L1 carboplatin, pemetrexed, pembrolizumab",
+101,2/14/19,2/14/19,pembrolizumab,"L1 carboplatin, pemetrexed, pembrolizumab",
+101,2/14/19,2/14/19,pemetrexed,"L1 carboplatin, pemetrexed, pembrolizumab",
+101,2/14/19,2/14/19,CARBOplatin,"L1 carboplatin, pemetrexed, pembrolizumab",
+101,3/7/19,3/7/19,pembrolizumab,"L1 carboplatin, pemetrexed, pembrolizumab",
+101,3/7/19,3/7/19,pemetrexed,"L1 carboplatin, pemetrexed, pembrolizumab",
+101,3/7/19,3/7/19,CARBOplatin,"L1 carboplatin, pemetrexed, pembrolizumab",
+101,3/28/19,3/28/19,pembrolizumab,"L1 carboplatin, pemetrexed, pembrolizumab",
+101,3/28/19,3/28/19,pemetrexed,"L1 carboplatin, pemetrexed, pembrolizumab",
+101,3/28/19,3/28/19,CARBOplatin,"L1 carboplatin, pemetrexed, pembrolizumab",
+101,4/18/19,4/18/19,pembrolizumab,"L1 carboplatin, pemetrexed, pembrolizumab",
+101,4/18/19,4/18/19,pemetrexed,"L1 carboplatin, pemetrexed, pembrolizumab",
+2,1/14/18,1/14/18,nivolumab,L1 nivolumab,
+2,2/3/18,2/3/18,nivolumab,L1 nivolumab,
+2,2/18/18,2/18/18,nivolumab,L1 nivolumab,
+2,3/4/18,3/4/18,nivolumab,L1 nivolumab,
+2,3/4/18,3/4/18,CARBOplatin,"L2 carboplatin, nivolumab",
+2,3/18/18,3/18/18,nivolumab,"L2 carboplatin, nivolumab",
+2,3/18/18,3/18/18,CARBOplatin,"L2 carboplatin, nivolumab",
+2,4/1/18,4/1/18,CARBOplatin,"L2 carboplatin, nivolumab",
+2,4/1/18,4/1/18,nivolumab,"L2 carboplatin, nivolumab",
+2,4/14/18,4/14/18,nivolumab,"L2 carboplatin, nivolumab",
+2,4/14/18,4/14/18,CARBOplatin,"L2 carboplatin, nivolumab",
+2,4/29/18,4/29/18,nivolumab,"L2 carboplatin, nivolumab",
+2,4/29/18,4/29/18,CARBOplatin,"L2 carboplatin, nivolumab",
+2,5/14/18,5/14/18,cetuximab,L3 cetuximab,
+2,5/21/18,5/21/18,cetuximab,L3 cetuximab,
+2,5/28/18,5/28/18,cetuximab,L3 cetuximab,
+2,6/4/18,6/4/18,cetuximab,L3 cetuximab,
+2,6/11/18,6/11/18,cetuximab,L3 cetuximab,
+2,6/18/18,6/18/18,cetuximab,L3 cetuximab,
+2,11/12/18,11/12/18,durvalumab,L4 durvalumab,
+2,11/26/18,11/26/18,durvalumab,L4 durvalumab,
+4,1/1/20,1/1/20,carboplatin,"L1 carboplatin, pemetrexed, pembrolizumab",
+4,1/1/20,1/1/20,pembrolizumab,"L1 carboplatin, pemetrexed, pembrolizumab",
+4,1/1/20,1/1/20,pemetrexed,"L1 carboplatin, pemetrexed, pembrolizumab",
+4,2/1/20,2/1/20,carboplatin,"L1 carboplatin, pemetrexed, pembrolizumab",
+4,2/1/20,2/1/20,pembrolizumab,"L1 carboplatin, pemetrexed, pembrolizumab","L2 pemetrexed, pembrolizumab"
+4,2/1/20,2/1/20,pemetrexed,"L1 carboplatin, pemetrexed, pembrolizumab","L2 pemetrexed, pembrolizumab"
+4,3/1/20,3/1/20,pembrolizumab,"L1 carboplatin, pemetrexed, pembrolizumab","L2 pemetrexed, pembrolizumab"
+4,3/1/20,3/1/20,pemetrexed,"L1 carboplatin, pemetrexed, pembrolizumab","L2 pemetrexed, pembrolizumab"
+4,4/1/20,4/1/20,pembrolizumab,"L1 carboplatin, pemetrexed, pembrolizumab","L2 pemetrexed, pembrolizumab"
+4,4/1/20,4/1/20,pemetrexed,"L1 carboplatin, pemetrexed, pembrolizumab","L2 pemetrexed, pembrolizumab"
+4,5/1/20,5/1/20,pembrolizumab,"L1 carboplatin, pemetrexed, pembrolizumab",L3 pembrolizumab
+4,5/1/20,5/1/20,pembrolizumab,"L1 carboplatin, pemetrexed, pembrolizumab",L3 pembrolizumab
+1111,1/1/19,1/1/19,pembrolizumab,L1 pembrolizumab,
+1111,2/1/19,2/1/19,pembrolizumab,L1 pembrolizumab,
+1111,7/1/19,7/1/19,pembrolizumab,L2 pembrolizumab,
+1111,8/1/19,8/1/19,pembrolizumab,L2 pembrolizumab,
+1111,9/1/19,9/1/19,pembrolizumab,L2 pembrolizumab,
+1111,10/1/19,10/1/19,cisplatin,L3 cisplatin pemetrexed,
+1111,10/1/19,10/1/19,pemetrexed,L3 cisplatin pemetrexed,
+1111,11/4/19,11/4/19,cisplatin,L3 cisplatin pemetrexed,
+1111,11/8/19,11/8/19,pemetrexed,L3 cisplatin pemetrexed,
+1111,5/2/20,5/2/20,cisplatin,L4 cisplatin pemetrexed,
+1111,5/16/20,5/16/20,pemetrexed,L4 cisplatin pemetrexed,
+2222,1/1/19,1/1/19,nivolumab,"L1 cisplatin, nivolumab",L1 nivolumab
+2222,1/1/19,1/1/19,cisplatin,"L1 cisplatin, nivolumab",L1 nivolumab
+2222,2/1/19,2/1/19,nivolumab,"L1 cisplatin, nivolumab",L1 nivolumab
+2222,7/1/19,7/1/19,nivolumab,"L1 cisplatin, nivolumab",L1 nivolumab
+2222,8/1/19,8/1/19,nivolumab,"L1 cisplatin, nivolumab",L1 nivolumab
+2222,9/1/19,9/1/19,nivolumab,"L1 cisplatin, nivolumab",L1 nivolumab
+2222,10/1/19,10/1/19,nivolumab,"L1 cisplatin, nivolumab",L1 nivolumab
+2222,1/1/20,1/1/20,pembrolizumab,"L1 carboplatin, pemetrexed, pembrolizumab",
+2222,1/1/20,1/1/20,pemetrexed,"L1 carboplatin, pemetrexed, pembrolizumab",
+2222,1/1/20,1/1/20,carboplatin,"L1 carboplatin, pemetrexed, pembrolizumab",
+2222,2/1/20,2/1/20,pembrolizumab,"L1 carboplatin, pemetrexed, pembrolizumab",
+2222,7/1/20,7/1/20,pembrolizumab,L2 pembrolizumab,
+2222,8/1/20,8/1/20,pembrolizumab,L2 pembrolizumab,
+2222,9/1/20,9/1/20,pembrolizumab,L2 pembrolizumab,
+2222,10/1/20,10/1/20,pembrolizumab,L2 pembrolizumab,
+3333,1/1/20,1/1/20,pembrolizumab,"L1 pemetrexed, pembrolizumab",
+3333,1/1/20,1/1/20,pemetrexed,"L1 pemetrexed, pembrolizumab",
+3333,2/2/20,2/2/20,pemetrexed,"L1 pemetrexed, pembrolizumab",
+3333,2/1/20,2/1/20,pembrolizumab,"L1 pemetrexed, pembrolizumab",
+3333,3/2/20,3/2/20,pemetrexed,maintenance pemetrexed,
+3333,4/15/20,4/15/20,pemetrexed,maintenance pemetrexed,
+3333,5/8/20,5/8/20,pemetrexed,maintenance pemetrexed,
+3344,1/1/20,1/1/20,pembrolizumab,"L1 carboplatin, pemetrexed, pembrolizumab",
+3344,1/1/20,1/1/20,carboplatin,"L1 carboplatin, pemetrexed, pembrolizumab",
+3344,1/1/20,1/1/20,pemetrexed,"L1 carboplatin, pemetrexed, pembrolizumab",
+3344,2/2/20,2/2/20,pemetrexed,"L1 carboplatin, pemetrexed, pembrolizumab",
+3344,2/2/20,2/2/20,carboplatin,"L1 carboplatin, pemetrexed, pembrolizumab",
+3344,2/1/20,2/1/20,pembrolizumab,"L1 carboplatin, pemetrexed, pembrolizumab",
+3344,3/2/20,3/2/20,pemetrexed,maintenance pemetrexed,
+3344,4/15/20,4/15/20,pemetrexed,maintenance pemetrexed,
+3344,5/8/20,5/8/20,pemetrexed,maintenance pemetrexed,
+4444,1/1/20,1/1/20,pembrolizumab,L1 pembrolizumab,
+4444,2/2/20,2/2/20,pembrolizumab,L1 pembrolizumab,
+4444,2/1/20,2/1/20,pembrolizumab,L1 pembrolizumab,
+4444,3/2/20,3/2/20,pemetrexed,maintenance pemetrexed,
+4444,4/15/20,4/15/20,pemetrexed,maintenance pemetrexed,
+4444,5/8/20,5/8/20,pemetrexed,maintenance pemetrexed,
+5555,1/1/20,1/1/20,erlotinib,1L erlotinib,1L erlotinib
+5555,2/2/20,2/2/20,erlotinib,1L erlotinib,1L erlotinib
+5555,3/2/20,3/2/20,erlotinib,1L erlotinib,1L erlotinib
+5555,10/10/20,10/10/20,erlotinib,1L erlotinib,2L erlotinib
+5555,11/10/20,11/10/20,erlotinib,1L erlotinib,2L erlotinib
+5555,5/15/21,5/15/21,erlotinib,1L erlotinib,2L erlotinib
+6666,10/1/19,10/1/19,cisplatin,"L1 cisplatin, pemetrexed",
+6666,10/1/19,10/1/19,pemetrexed,"L1 cisplatin, pemetrexed",
+6666,11/4/19,11/4/19,cisplatin,"L1 cisplatin, pemetrexed",
+6666,11/8/19,11/8/19,pemetrexed,"L1 cisplatin, pemetrexed",
+6666,5/2/20,5/2/20,carboplatin,"L1 cisplatin, pemetrexed","L2 carboplatin, pemetrexed"
+6666,5/16/20,5/16/20,pemetrexed,"L1 cisplatin, pemetrexed","L2 carboplatin, pemetrexed"
+67,5/16/20,5/16/20,pemetrexed,"L1 carboplatin, pemetrexed",
+67,5/16/20,5/16/20,carboplatin,"L1 carboplatin, pemetrexed",
