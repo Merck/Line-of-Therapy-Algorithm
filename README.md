@@ -62,6 +62,22 @@ input.outfile = "test". # The output file name
 4. Edit or alter any of the files in the "reference" folder (see Overview section for more details) that pertain to your use case.
 5. Run the script. After the run is complete, you should see your output LOT in your output/{indication}/{database}/ folder
 
+Once the script completes, the script will produce an "output_lot_test.csv" file which contains the following columns:
+* PATIENT_ID	
+* LINE_NUMBER	
+* LINE_NAME	
+* START_DATE - Date of the first drug administration for that line
+* END_DATE	- Date of the last drug administration for that line
+* LINE_TYPE	- Monotherapy or Combotherapy
+* IS_MAINTENANCE	- Flag if the line identified is a maintenance therapy
+* ADD_EXEMPTION	- Flag to indicate there was exception to advancing a new line via adding a new drug outside the line regimen
+* SUB_EXEMPTION	- Flag to indicate there was exception to advancing a new line via substituting a drug with a new outside the line regimen
+* GAP_EXEMPTION	- Flag to indicate there was exception to advancing a new line via a large gap in drug administration
+* NAME_EXEMPTION	- Flag to indicate there was a change in the line regimen name via early drug switching rules
+* LINE_END_REASON	- Description of reason for line end
+* ENHANCED_COHORT	- The indication/disease area
+* INDEX_DATE - The index date of the patient (Start date of the first line)
+
 ## Overview
 The LOT code consists of primarily four R script files as well as six reference CSV files. The four script files either run the main execution of the line of therapy calculation, or contain supporting functions that the main execution calls on. 
 
