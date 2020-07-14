@@ -1,6 +1,4 @@
 import pandas as pd
-if pd.__version__ < '0.25': raise Exception('require pandas>=0.25')
-
 import datetime
 import sys 
 
@@ -45,9 +43,9 @@ def main():
                   l_disgap = 180,
                   drug_switch_ignore = False,
                   combo_dropped_line_advance = False,
-                  indication = "CLL",
+                  indication = "NSCLC",
                   database = "Test",
-                  filename = "test.csv",
+                  filename = "example_input.csv",
                   outfile = "test",
                   data = pd.DataFrame(),
                   unique_patients = list())
@@ -58,8 +56,8 @@ def main():
     ### Load Preprocessed Data ### 
     ##############################
 
-    input.data = pd.read_csv("./data/" + input.indication + "/" + input.database + "/" + input.filename).drop_duplicates()
-    #input.data = pd.read_csv("../../processed_input_all.csv").drop_duplicates()
+    #input.data = pd.read_csv("./data/" + input.indication + "/" + input.database + "/" + input.filename).drop_duplicates()
+    input.data = pd.read_csv("../../processed_input_all.csv").drop_duplicates()
     #input.data = pd.read_csv("../../patient1184401.csv").drop_duplicates()
 
     input.unique_patients = input.data['PATIENT_ID'].unique()
@@ -75,6 +73,37 @@ def main():
     ##################################################
     ### Blank template of final output to be saved ###
     ##################################################
+
+    # The R version first defines the columns of the output dataframes
+    # output_lot = pd.DataFrame({'PATIENT_ID' : str(),
+    #                            'LINE_NUMBER' : str(),
+    #                            'LINE_NAME' : str(),
+    #                            'START_DATE' : pd.to_datetime(str()),
+    #                            'END_DATE' : pd.to_datetime(str()),
+    #                            'LINE_TYPE' : str(),
+    #                            'IS_MAINTENANCE' : bool(),
+    #                            'ADD_EXEMPTION' : bool(),
+    #                            'SUB_EXEMPTION' : bool(),
+    #                            'GAP_EXEMPTION' : bool(),
+    #                            'NAME_EXEMPTION' : bool(),
+    #                            'LINE_END_REASON' : str(),
+    #                            'ENHANCED_COHORT' : str(),
+    #                            'INDEX_DATE' : pd.to_datetime(str())},
+    #                           index = [1])
+    
+    
+    
+    # output_doses = pd.DataFrame({'PATIENT_ID' : str(),
+    #                              'MED_START' : pd.to_datetime(str()),
+    #                              'MED_END' : pd.to_datetime(str()),
+    #                              'MED_NAME' : str(),
+    #                              'LINE_NUMBER' : str(),
+    #                              'LINE_NAME' : str()}, 
+    #                             index = [1])
+    #
+    # In Python this creates and extra empty row at the top.  
+    # We do not need to specify column names beforehand, just a simple declaration is sufficients
+
     output_lot = pd.DataFrame()
     output_doses = pd.DataFrame()
     
@@ -187,11 +216,6 @@ def main():
             tmp.data = tmp.cut['after']
     #print(output_lot)
     #print(output_doses)
-
-    #prepare the output dir
-    outdir=f'./output/{input.indication}/{input.database}'
-    import subprocess as sp
-    sp.call(f'mkdir -p {outdir}', shell=True)
 
     output_lot.to_csv("./output/" + input.indication + "/" + input.database + "/output_lot_" + input.outfile + ".csv", index = False)
     output_doses.to_csv("./output/" + input.indication + "/" + input.database + "/output_doses_" + input.outfile + ".csv", index = False)
