@@ -48,8 +48,8 @@ input.drug_switch_ignore = FALSE
 input.combo_dropped_line_advance = FALSE
 input.indication = "NSCLC"
 input.database = "Test"
-input.filename = "example_input.csv"
-input.outfile = "test"
+input.filename = "MockData.csv"
+input.outfile = "MockData"
 
 source("rwToT_LoT_import.R")
 source("rwToT_LoT_line.R")

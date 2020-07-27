@@ -165,10 +165,6 @@ get_line_data = function(df, r_regimen, l_disgap, l_line_number, l_is_next_maint
     line.end_date = check_combo_dropped_drugs$line_end_date
     line.end_reason = check_combo_dropped_drugs$line_end_reason
     line.next_start = check_combo_dropped_drugs$line_next_start
-    print(line.drug_summary)
-    print(line.next_start)
-    print(line.end_date)
-    print(df)
   }
 
   
