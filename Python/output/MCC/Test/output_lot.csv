@@ -1,0 +1,13 @@
+PATIENT_ID,LINE_NUMBER,LINE_NAME,START_DATE,END_DATE,LINE_TYPE,IS_MAINTENANCE,ADD_EXEMPTION,SUB_EXEMPTION,GAP_EXEMPTION,NAME_EXEMPTION,LINE_END_REASON,ENHANCED_COHORT,INDEX_DATE
+10000002,1,"carboplatin,paclitaxel",2019-02-12,2019-05-22,combo,False,False,False,False,False,Passed discontinuation gap,MCC,2019-02-12
+10000002,2,pembrolizumab,2019-09-18,2019-09-18,mono,False,False,False,False,False,Last row hit,MCC,2019-02-12
+10000001,1,pembrolizumab,2018-12-07,2019-02-01,mono,False,False,False,False,False,Passed discontinuation gap,MCC,2018-12-07
+10000001,2,pembrolizumab,2019-09-12,2019-12-16,mono,False,False,False,False,False,New line started with new drugs,MCC,2018-12-07
+10000001,3,ramucirumab,2020-01-15,2020-05-06,mono,False,False,False,False,False,New line started with new drugs,MCC,2018-12-07
+10000001,4,"paclitaxel,paclitaxel protein-bound particles,ramucirumab",2020-05-19,2020-07-22,combo,False,False,False,False,False,Last row hit,MCC,2018-12-07
+10000003,1,pembrolizumab,2018-03-05,2018-11-14,mono,False,False,False,False,False,Last row hit,MCC,2018-03-05
+10000004,1,pembrolizumab,2019-07-02,2019-09-12,mono,False,False,False,False,False,Passed discontinuation gap,MCC,2019-07-02
+10000004,2,pembrolizumab,2020-01-13,2020-07-20,mono,False,False,False,False,False,Last row hit,MCC,2019-07-02
+10000005,1,carboplatin,2019-07-31,2019-07-31,mono,False,False,False,False,False,Passed discontinuation gap,MCC,2019-07-31
+10000005,2,pembrolizumab,2019-11-27,2019-11-27,mono,False,False,False,False,False,Last row hit,MCC,2019-07-31
+10000006,1,pembrolizumab,2017-08-11,2017-12-15,mono,False,False,False,False,False,Last row hit,MCC,2017-08-11

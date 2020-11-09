@@ -59,9 +59,6 @@ def check_line_name(regimen, drug_summary, cases, input_r_window, input_drug_swi
     regimen = sorted(regimen)
     line_name = ','.join(regimen)
   
-    print(line_name)
-    print(line_start_date)
-    print(switched)
     return({'line_name':line_name, 'line_start':line_start_date, 'line_switched':switched})
         
 
@@ -249,7 +246,14 @@ def snip_dataframe(df, cut_date):
 def get_drug_summary(df, input_r_window, line_end_date):
     
     line_df = (df.loc[df['MED_START'] <= line_end_date]).sort_values(by = ['MED_START']).reset_index()
-    drug_summary = line_df.groupby(['MED_NAME']).agg(LAST_SEEN = ('MED_END', 'max'), FIRST_SEEN = ('MED_START', 'min')).reset_index()
+    #drug_summary = line_df.groupby(['MED_NAME']).agg(LAST_SEEN = ('MED_END', 'max'), FIRST_SEEN = ('MED_START', 'min')).reset_index(drop = True)
+    drug_summary_last_seen = line_df.groupby('MED_NAME')['MED_END'].agg([('LAST_SEEN', 'max')]).reset_index()
+    drug_summary_first_seen = line_df.groupby('MED_NAME')['MED_START'].agg([('FIRST_SEEN', 'min')]).reset_index()
+    drug_summary = pd.merge(drug_summary_last_seen, drug_summary_first_seen, how = 'left', left_on = 'MED_NAME', right_on = 'MED_NAME')
+    #drug_summary = drug_summary_0.groupby('MED_NAME')['MED_START'].agg([('FIRST_SEEN', 'max')])
+    #drug_summary = line_df.groupby('MED_NAME')['MED_START'].agg([('FIRST_SEEN', 'max')])#.groupby('MED_NAME')['MED_START'].agg([('FIRST_SEEN', 'min')])
+    #drug_summary = drug_summary.groupby('MED_NAME')['MED_START'].agg([('FIRST_SEEN', 'min')])
+    #drug_summary = drug_summary.reset_index(drop = True)
     drug_summary['DROPPED'] = 0
     drug_summary.loc[(drug_summary['LAST_SEEN'] < line_end_date - timedelta(days = input_r_window)), 'DROPPED'] = 1  
     drug_summary['PATIENT_ID'] = line_df.loc[0, 'PATIENT_ID']

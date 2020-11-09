@@ -1,7 +1,8 @@
 import datetime
 
 import rwToT_LoT_functions as fn
-import rwToT_LoT_import as im
+#import rwToT_LoT_import as im
+#import rwToT_LoT_read_param as rp
 
 def get_regimen(df, r_window):
 
@@ -59,8 +60,11 @@ def get_line_data(df,
                   input_r_window, 
                   input_drug_switch_ignore, 
                   input_combo_dropped_line_advance,
-                  input_indication):
-    cases = im.cases(input_indication)
+                  input_indication,
+                  cases):
+    #cases = im.cases(input_indication)
+    #cases = rp.cases(input_indication)
+    cases = cases
 
     # Set assumptions
     line_is_maintenance = False
@@ -70,6 +74,7 @@ def get_line_data(df,
         line_type = "mono"
     line_line_number = l_line_number
     line_line_start = None
+    adjusted_line_start = None  # V.S. 10/01/20
     line_end_date_less_than_flag = False
     line_is_next_maintenance = l_is_next_maintenance
     
@@ -98,7 +103,9 @@ def get_line_data(df,
             has_eligible_drug_addition = fn.is_eligible_drug_addition(next_drug, cases.line_additions)
             has_eligible_drug_substition = fn.is_eligible_drug_substitution(next_drug, r_regimen, cases.line_substitutions)
             has_gap_exemption = fn.is_excluded_from_gap(r_regimen, remaining_drugs, list(cases.episode_gap['drug_name']))
-      
+
+            two_cycles = df.loc[i-1, 'TWO_CYCLES']      #  V.S. 2020/10/01 - Cycle check
+
             # If you hit the last row in the scan, then stop and return outputs
             if (i == len(df.index)-1) and ((next_drug in r_regimen) or has_eligible_drug_substition or has_eligible_drug_addition): 
                 if ((next_drug_date - current_drug_end).days > l_disgap) and (has_gap_exemption == False):
@@ -120,7 +127,17 @@ def get_line_data(df,
                 line_end_reason = "Passed discontinuation gap"
                 line_next_start = next_drug_date
                 break
-      
+
+                
+            # Line is not advanced because two-cycle rule is not met    
+            elif (next_drug in r_regimen) == False and (has_eligible_drug_addition == False) and (has_eligible_drug_substition == False) and two_cycles == False:   # V.S. 2020/10/01
+                r_regimen = df[df['CYCLE']==df.loc[i, 'CYCLE']]['MED_NAME'].unique()                                                                                # V.S. 2020/10/01
+                drug_dates = df[df['MED_NAME'].isin(r_regimen)]['MED_START']                                                                                        # V.S. 2020/10/01
+                adjusted_line_start = min(drug_dates)                                                                                                               # V.S. 2020/10/01
+                line_end_date = max(drug_dates)                                                                                                                     # V.S. 2020/10/01
+                line_end_reason = "New line started with new drugs"                                                                                                 # V.S. 2020/10/01
+                line_next_start = next_drug_date                                                                                                                    # V.S. 2020/10/01
+                
             # Check if the next drug is not part of the regimen
             elif (next_drug in r_regimen) == False and (has_eligible_drug_addition == False) and (has_eligible_drug_substition == False):
                 temp_check_new_regimen = df[df['MED_START'] == current_drug_end]#['MED_NAME']
@@ -150,6 +167,8 @@ def get_line_data(df,
     check_line_name = fn.check_line_name(r_regimen, line_drug_summary, cases.line_name, input_r_window, input_drug_switch_ignore)
     line_name = check_line_name['line_name']
     line_line_start = check_line_name['line_start']
+    if adjusted_line_start:                                 # V.S. 10/01/2020
+        line_line_start = adjusted_line_start               # V.S. 10/01/2020
     has_line_name_exemption = check_line_name['line_switched']
   
     # Compute Line Type
