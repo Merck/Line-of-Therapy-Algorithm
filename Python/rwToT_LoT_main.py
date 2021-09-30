@@ -56,8 +56,8 @@ def main():
     ### Load Preprocessed Data ### 
     ##############################
 
-    #input.data = pd.read_csv("./data/" + input.indication + "/" + input.database + "/" + input.filename).drop_duplicates()
-    input.data = pd.read_csv("../../processed_input_all.csv").drop_duplicates()
+    input.data = pd.read_csv("./data/" + input.indication + "/" + input.database + "/" + input.filename).drop_duplicates()
+    #input.data = pd.read_csv("../../processed_input_all.csv").drop_duplicates()
     #input.data = pd.read_csv("../../patient1184401.csv").drop_duplicates()
 
     input.unique_patients = input.data['PATIENT_ID'].unique()
