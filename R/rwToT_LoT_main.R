@@ -43,13 +43,13 @@ library("dplyr")
 ### hardcoded input parameters ###
 ##################################
 input.r_window = 28
-input.l_disgap = 180
+input.l_disgap = 120
 input.drug_switch_ignore = FALSE
 input.combo_dropped_line_advance = FALSE
 input.indication = "NSCLC"
 input.database = "Test"
-input.filename = "MockData.csv"
-input.outfile = "MockData"
+input.filename = "example_input.csv"
+input.outfile = "example_input"
 
 source("rwToT_LoT_import.R")
 source("rwToT_LoT_line.R")
