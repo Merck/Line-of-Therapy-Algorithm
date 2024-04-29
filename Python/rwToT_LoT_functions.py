@@ -138,7 +138,7 @@ def is_eligible_switch_maintenance(regimen, cases_maintenance, line_number):
     regimen = [x.upper() for x in regimen]    
     cases_maintenance = pd.DataFrame(data = cases_maintenance)
     cases_maintenance = cases_maintenance[cases_maintenance['maintenance_type'] == 'SWITCH']
-    return all(drug in regimen for drug in cases_maintenance['drug_name']) and (line_number == 1)
+    return all(drug in list(cases_maintenance['drug_name']) for drug in regimen) and (line_number == 1)
 
 
 def is_eligible_continuation_maintenance(regimen, cases_maintenance, line_number, drug_group):  
